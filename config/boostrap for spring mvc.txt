@@ -1,0 +1,41 @@
+ 
+ // tạo thư mục resources trong webApp và các thư mục khác như sơ đồ bên dưới
+ // copy file bootstrap.min.css vào thư mục styles
+ // copy file bootstrap.min.js vào thư mục javascript
+
+ WebApp-|    
+           | - resources -|
+           |              |-styles-|
+           |              |        |-bootstrap.min.css
+           |              |
+           |              |-javascript-|
+           |                           |-example.js
+           |
+           | - WEB-INF     
+		   
+	
+
+// 	override method bên dưới vào trong file AppConfiguration.java
+		@Override
+		public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		}	
+
+	
+		  
+// import JSTL
+		implementation group: 'javax.servlet', name: 'jstl', version: '1.2'	
+		
+
+
+// nhúng bootstrap bằng các thẻ bên dưới.	   
+		    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		<html>
+		<head>
+		<link href="<c:url value="/resources/styles/bootstrap.min.css" />" rel="stylesheet">
+		<script src="<c:url value="/resources/javascript/example.js" />"></script>
+		....
+
+
+
+		
