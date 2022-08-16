@@ -1,0 +1,106 @@
+compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+
+
+// fix l?i font ch?
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {    options.encoding = 'UTF-8'}
+
+request.setCharacterEncoding("UTF-8");
+
+
+
+
+var table = $('#tableStudent').DataTable();
+
+    $("form").on('submit', function(e){
+        var $form = $(this);
+
+        // Iterate over all checkboxes in the table
+        table.$('input[type="checkbox"]').each(function(){
+            // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+                // If checkbox is checked
+                if(this.checked){
+                    // Create a hidden element
+                    $form.append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', this.name)
+                            .val(this.value)
+                    );
+                }
+            }
+        });
+    });
+});
+
+
+
+
+
+  public Map<String, String> validate(Customer customer){
+        Map<String,String> errMap = new HashMap<>();
+        if (!customer.getName().isEmpty()){
+            if (!customer.getName().matches("^[A-ZÐ][a-z??á?????à????????????ú??????????ù?????í?????????óé????è?????õôýãêâ]+" +
+                    "( [A-ZÐ][a-z??á?????à????????????ú??????????ù?????í?????????óé????è?????õôýãêâ]*)*$")){
+                errMap.put("nameErr","Please input right format!");
+            }
+        }else {
+            errMap.put("nameErr","Please input name");
+        }
+
+        if (!customer.getIdCard().isEmpty()){
+            if (!customer.getIdCard().matches("^[0-9]{9}|[0-9]{12}$")){
+                errMap.put("idErr","Please input right format!");
+            }
+        }else {
+            errMap.put("idErr","please input idCard");
+        }
+
+        if (!customer.getPhone().isEmpty()){
+            if (!customer.getPhone().matches("^((090)|(091)|(\\(84\\)\\+90)|(\\(84\\)\\+91))[0-9]{7}$")){
+                errMap.put("phoneErr","Please input right format!");
+            }
+        }else {
+            errMap.put("phoneErr","please input phone");
+        }
+
+        if (!customer.getEmail().isEmpty()){
+            if (!customer.getEmail().matches("^[a-z0-9]+@[a-z]+\\.[a-z]+$")){
+                errMap.put("emailErr","Please input right format!");
+            }
+        }else {
+            errMap.put("emailErr","please input email");
+        }
+
+        if ((!customer.getBirthDay().isEmpty())){
+            try {
+                LocalDate birthDay = LocalDate.parse(customer.getBirthDay(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            }catch (Exception e){
+                errMap.put("birthdayErr","Please input right format!");
+            }
+        }else {
+            errMap.put("birthdayErr","please input birthday");
+        }
+
+     if (!facility.getFacilityTypeId().equals("3")) {
+            if (!facility.getFloors().isEmpty()) {
+                try {
+                    if (Integer.parseInt(facility.getFloors()) < 0 || !facility.getFloors().matches("^[0-9]*$")) {
+                        errMap.put("floorErr", "Number of floor must be an positive ");
+                    }
+                } catch (Exception e) {
+                    errMap.put("floorErr", "Please input right format");
+                }
+            } else {
+                errMap.put("floorErr", "Please input number of floors");
+            }
+        }else {
+            facility.setFloors("0");
+        }
+        return errMap;
+    }
