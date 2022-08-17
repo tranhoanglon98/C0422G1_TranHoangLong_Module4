@@ -54,8 +54,8 @@ public class MedicalDeclarationController {
 
     @PostMapping("/save_update/{id}")
     public String saveUpdateMedicalDeclaration(@ModelAttribute MedicalDeclaration medicalDeclaration,
-                                               @PathVariable int id){
-        this.medicalDeclaration.update(id,medicalDeclaration);
+                                               @PathVariable int id) {
+        this.medicalDeclaration.update(id, medicalDeclaration);
         return "redirect:/";
     }
 }

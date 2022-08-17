@@ -14,18 +14,18 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     private static List<String> genders = new LinkedList<>();
     private static List<String> nationalities = new LinkedList<>();
     private static List<String> transports = new LinkedList<>();
-    private static Map<Integer,MedicalDeclaration> medicalDeclarationMap = new HashMap<>();
+    private static Map<Integer, MedicalDeclaration> medicalDeclarationMap = new HashMap<>();
 
     static {
-        for (int i = 2022; i >=1900; i--) {
+        for (int i = 2022; i >= 1900; i--) {
             years.add(String.valueOf(i));
         }
 
-        for (int i = 1; i <13 ; i++) {
+        for (int i = 1; i < 13; i++) {
             months.add(String.valueOf(i));
         }
 
-        for (int i = 1; i <32 ; i++) {
+        for (int i = 1; i < 32; i++) {
             days.add(String.valueOf(i));
         }
 
@@ -84,7 +84,7 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     public void add(MedicalDeclaration medicalDeclaration) {
         int id = medicalDeclarationMap.size() + 1;
         medicalDeclaration.setId(id);
-        medicalDeclarationMap.put(id,medicalDeclaration);
+        medicalDeclarationMap.put(id, medicalDeclaration);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
 
     @Override
     public void update(int id, MedicalDeclaration medicalDeclaration) {
-        medicalDeclarationMap.put(id,medicalDeclaration);
+        medicalDeclarationMap.put(id, medicalDeclaration);
     }
 
     @Override

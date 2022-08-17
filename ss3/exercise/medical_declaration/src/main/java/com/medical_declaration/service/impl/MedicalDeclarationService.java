@@ -45,7 +45,7 @@ public class MedicalDeclarationService implements IMedicalDeclarationService {
 
     @Override
     public void add(MedicalDeclaration medicalDeclaration) {
-       this.medicalDeclarationRepository.add(medicalDeclaration);
+        this.medicalDeclarationRepository.add(medicalDeclaration);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MedicalDeclarationService implements IMedicalDeclarationService {
 
     @Override
     public void update(int id, MedicalDeclaration medicalDeclaration) {
-        this.medicalDeclarationRepository.update(id,medicalDeclaration);
+        this.medicalDeclarationRepository.update(id, medicalDeclaration);
     }
 
     @Override
