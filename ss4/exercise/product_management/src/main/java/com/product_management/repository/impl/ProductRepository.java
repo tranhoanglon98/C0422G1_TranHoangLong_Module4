@@ -52,15 +52,4 @@ public class ProductRepository implements IProductRepository {
     public Product findById(int id) {
         return productMap.get(id);
     }
-
-    @Override
-    public List<Product> findByName(String name) {
-        List<Product> productList = new ArrayList<>();
-        for (Product p : productMap.values()) {
-            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
-                productList.add(p);
-            }
-        }
-        return productList;
-    }
 }

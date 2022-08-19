@@ -14,8 +14,8 @@ public class ProductController {
     private IProductService iProductService;
 
     @GetMapping("/")
-    public String goListPage(Model model) {
-        model.addAttribute("productList", this.iProductService.findAll());
+    public String goListPage(@RequestParam(required = false,defaultValue = "") String productName,Model model) {
+        model.addAttribute("productList", this.iProductService.findAll(productName));
         return "product_list";
     }
 
@@ -47,12 +47,6 @@ public class ProductController {
     public String update(@ModelAttribute Product product) {
         this.iProductService.update(product.getId(), product);
         return "redirect:/";
-    }
-
-    @GetMapping("/search")
-    public String search(@RequestParam String productName, Model model) {
-        model.addAttribute("productList", this.iProductService.findByName(productName));
-        return "product_list";
     }
 
     @GetMapping("/detail/{id}")

@@ -14,8 +14,14 @@ public class ProductService implements IProductService {
     private IProductRepository iProductRepository;
 
     @Override
-    public List<Product> findAll() {
-        return this.iProductRepository.findAll();
+    public List<Product> findAll(String name) {
+        List<Product> productList = iProductRepository.findAll();
+        for (int i = productList.size() -1; i >=0 ; i--) {
+            if (!productList.get(i).getName().toLowerCase().contains(name.toLowerCase())){
+                productList.remove(i);
+            }
+        }
+        return productList;
     }
 
     @Override
@@ -36,10 +42,5 @@ public class ProductService implements IProductService {
     @Override
     public Product findById(int id) {
         return this.iProductRepository.findById(id);
-    }
-
-    @Override
-    public List<Product> findByName(String name) {
-        return this.iProductRepository.findByName(name);
     }
 }
