@@ -61,7 +61,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/codegym/C0422G1_TranHoangLong_Module4/ss5/exercise/music/")
+        registry.addResourceHandler("/codegym/C0422G1_TranHoangLong_Module4/ss5/exercise/music/**")
                 .addResourceLocations("file:" + fileUpload);
 
     }
