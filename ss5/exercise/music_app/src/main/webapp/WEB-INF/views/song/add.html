@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Song</title>
+</head>
+<body>
+<form action="/save" method="post" th:object="${songForm}" enctype="multipart/form-data">
+    <div>
+        <span>tên</span>
+        <input type="text" th:field="*{name}">
+    </div>
+    <div>
+        <span>artist</span>
+        <input type="text" th:field="*{artist}">
+    </div>\
+    <div>
+        <span>type</span>
+        <input type="text" th:field="*{type}">
+    </div>
+    <div>
+        <span>path</span>
+        <input type="file" th:field="*{path}">
+    </div>
+    <div>
+        <button type="submit">add</button>
+    </div>
+</form>
+</body>
+</html>

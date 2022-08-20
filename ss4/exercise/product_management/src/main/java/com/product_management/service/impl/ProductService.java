@@ -15,13 +15,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> findAll(String name) {
-        List<Product> productList = iProductRepository.findAll();
-        for (int i = productList.size() -1; i >=0 ; i--) {
-            if (!productList.get(i).getName().toLowerCase().contains(name.toLowerCase())){
-                productList.remove(i);
-            }
-        }
-        return productList;
+        return this.iProductRepository.findAll(name);
     }
 
     @Override

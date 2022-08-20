@@ -41,7 +41,9 @@
                     </button>
                 </td>
                 <td>
-                    <a th:href="@{/detail/{id}(id=${product.id})}"><button class="btn btn-outline-success">Chi tiết</button></a>
+                    <a th:href="@{/detail/{id}(id=${product.id})}">
+                        <button class="btn btn-outline-success">Chi tiết</button>
+                    </a>
                 </td>
             </tr>
         </table>
@@ -53,10 +55,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <h4>Bạn có muốn xóa sản phẩm này không?</h4>
+                    </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <span>Mã sản phẩm: </span>
