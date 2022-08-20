@@ -3,7 +3,7 @@ package com.music.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SongForm {
-
+    private int id;
     private String name;
     private String artist;
     private String type;
@@ -17,6 +17,22 @@ public class SongForm {
         this.artist = artist;
         this.type = type;
         this.path = path;
+    }
+
+    public SongForm(int id, String name, String artist, String type, MultipartFile path) {
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+        this.type = type;
+        this.path = path;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

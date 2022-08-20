@@ -23,4 +23,19 @@ public class SongService implements ISongService {
     public void save(Song song) {
         this.iSongRepository.save(song);
     }
+
+    @Override
+    public Song findById(int id) {
+        return this.iSongRepository.findById(id);
+    }
+
+    @Override
+    public void update(Song song) {
+        this.iSongRepository.update(song);
+    }
+
+    @Override
+    public void delete(int id) {
+        this.iSongRepository.delete(id);
+    }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa thông tin bài hát</title>
+</head>
+<body>
+<form action="/saveUpdate" method="post" th:object="${songForm}" enctype="multipart/form-data">
+    <div>
+        <span>id</span>
+        <input type="text" readonly th:field="*{id}">
+    </div>
+    <div>
+        <span>tên</span>
+        <input type="text" th:field="*{name}">
+    </div>
+    <div>
+        <span>artist</span>
+        <input type="text" th:field="*{artist}">
+    </div>
+    <div>
+        <span>type</span>
+        <input type="text" th:field="*{type}">
+    </div>
+    <div>
+        <span>upload lại file</span>
+        <input type="file" th:field="*{path}">
+    </div>
+    <div>
+        <button type="submit">lưu</button>
+    </div>
+
+</form>
+
+<script>
+    function reUpFile() {
+        document.getElementById("inputFile").display = "block";
+    }
+</script>
+</body>
+</html>
