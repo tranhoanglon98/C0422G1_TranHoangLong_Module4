@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href=../../css/bootstrap.min.css>
+</head>
+<body>
+<div th:replace="nav"></div>
+<div class="container mx-auto w-75 mt-5">
+  <div class="text-center">
+    <h3 th:text="${blog.title}"></h3>
+  </div>
+  <div class="mt-5">
+    <p th:text="${blog.content}"></p>
+    <p th:text="${blog.author}"></p>
+  </div>
+</div>
+<script src="../../js/bootstrap.min.js"></script>
+</body>
+</html>

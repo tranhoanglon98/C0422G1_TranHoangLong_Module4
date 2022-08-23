@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href=../../css/bootstrap.min.css>
+</head>
+<body>
+<div th:replace="nav"></div>
+<div class="container mx-auto w-75 mt-5">
+    <div class="text-center">
+        <h3>Chỉnh sửa mới Blog</h3>
+    </div>
+    <div class="mt-5">
+        <form method="post" action="/save" th:object="${blog}">
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>ID: </span>
+                </div>
+                <div class="col-lg-9">
+                    <input readonly type="text" class="form-control" th:field="*{id}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>Tiêu đề: </span>
+                </div>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" th:field="*{title}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>Tóm tắt: </span>
+                </div>
+                <div class="col-lg-9">
+                    <input type="text"  class="form-control" th:field="*{summary}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>Nội dung: </span>
+                </div>
+                <div class="col-lg-9">
+                    <textarea  class="form-control" th:field="*{content}"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>Tác giả: </span>
+                </div>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" th:field="*{author}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-9">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../../js/bootstrap.min.js"></script>
+</body>
+</html>
