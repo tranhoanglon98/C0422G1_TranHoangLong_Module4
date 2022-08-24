@@ -6,13 +6,14 @@
     <link rel="stylesheet" href=../../css/bootstrap.min.css>
 </head>
 <body>
-<div th:replace="nav"></div>
+<div th:replace="/blog/nav::nav"></div>
 
 <div class="container w-75 mx-auto mt-5">
     <table class="table table-hover">
         <tr>
             <th>STT</th>
             <th>Tiêu để</th>
+            <th>Thể Loại</th>
             <th>Tóm tắt</th>
             <th>Tác giả</th>
             <th colspan="3"></th>
@@ -20,13 +21,14 @@
         <tr th:each="blog,status:${blogs}">
             <td th:text="${status.count}"></td>
             <td th:text="${blog.title}"></td>
+            <td th:text="${blog.category.category}"></td>
             <td th:text="${blog.summary}"></td>
             <td th:text="${blog.author}"></td>
             <td>
-                    <button class="btn btn-outline-danger"
-                            th:attr="onclick=|getInfoToModal('${blog.id}','${blog.title}')|"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa
-                    </button>
+                <button class="btn btn-outline-danger"
+                        th:attr="onclick=|getInfoToModal('${blog.id}','${blog.title}')|"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa
+                </button>
             </td>
             <td>
                 <a th:href="@{/edit(id=${blog.id})}">
@@ -40,8 +42,38 @@
             </td>
         </tr>
     </table>
-</div>
 
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:if="${blogs.hasPrevious()}"
+                   th:href="@{/(page=${blogs.number - 1},categorySearch=${categorySearch},titleSearch=${titleSearch})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&#9754;</span>
+                </a>
+            </li>
+            <li th:each="p,index: ${pageNumber} ">
+                <div class="page-item active" th:if="${index.index == blogs.number}">
+                    <a class="page-link"
+                       th:href="@{/(page=${index.index},categorySearch=${categorySearch},titleSearch=${titleSearch})}"
+                       th:text="${index.index + 1}"></a>
+                </div>
+                <div class="page-item" th:unless="${index.index == blogs.number}">
+                    <a class="page-link"
+                       th:href="@{/(page=${index.index},categorySearch=${categorySearch},titleSearch=${titleSearch})}"
+                       th:text="${index.index + 1}"></a>
+                </div>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:if="${blogs.hasNext()}"
+                   th:href="@{/(page=${blogs.number + 1},categorySearch=${categorySearch},titleSearch=${titleSearch})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&#9755;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 <form action="/delete">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

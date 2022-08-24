@@ -6,27 +6,29 @@
     <link rel="stylesheet" href=../../css/bootstrap.min.css>
 </head>
 <body>
-<div th:replace="nav"></div>
+<div th:replace="/blog/nav::nav"></div>
 <div class="container mx-auto w-75 mt-5">
     <div class="text-center">
-        <h3>Chỉnh sửa mới Blog</h3>
+        <h3>Thêm mới Blog</h3>
     </div>
     <div class="mt-5">
         <form method="post" action="/save" th:object="${blog}">
-            <div class="row mt-3">
-                <div class="col-lg-3">
-                    <span>ID: </span>
-                </div>
-                <div class="col-lg-9">
-                    <input readonly type="text" class="form-control" th:field="*{id}">
-                </div>
-            </div>
             <div class="row mt-3">
                 <div class="col-lg-3">
                     <span>Tiêu đề: </span>
                 </div>
                 <div class="col-lg-9">
                     <input type="text" class="form-control" th:field="*{title}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span>Thể Loại: </span>
+                </div>
+                <div class="col-lg-9">
+                    <select class="form-select" th:field="*{category}">
+                        <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.category}"></option>
+                    </select>
                 </div>
             </div>
             <div class="row mt-3">
@@ -56,13 +58,14 @@
             <div class="row mt-3">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-9">
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
-<script src="../../js/bootstrap.min.js"></script>
 </body>
 </html>

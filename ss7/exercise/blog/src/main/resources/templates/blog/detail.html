@@ -6,7 +6,7 @@
   <link rel="stylesheet" href=../../css/bootstrap.min.css>
 </head>
 <body>
-<div th:replace="nav"></div>
+<div th:replace="/blog/nav::nav"></div>
 <div class="container mx-auto w-75 mt-5">
   <div class="text-center">
     <h3 th:text="${blog.title}"></h3>
@@ -16,6 +16,6 @@
     <p th:text="${blog.author}"></p>
   </div>
 </div>
-<script src="../../js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
