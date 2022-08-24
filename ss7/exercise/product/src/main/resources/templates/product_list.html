@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<nav th:replace="~{nav :: navBar}"></nav>
+<div class="container mt-5">
+    <div class="text-center">
+        <h3>Danh Sách Sản Phẩm</h3>
+    </div>
+    <div class="mt-5">
+        <table class="table table-hover">
+            <tr>
+                <th>STT</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Nhà sản xuất</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="product,status:${productList}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.producer}"></td>
+                <td><a th:href="@{/update/{id}(id=${product.id})}">
+                    <button class="btn btn-outline-success">Sửa</button>
+                </a></td>
+                <td>
+                    <button type="button" th:attr="onclick=|deleteConfirm('${product.id}','${product.name}')|"
+                            class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Xóa
+                    </button>
+                </td>
+                <td>
+                    <a th:href="@{/detail/{id}(id=${product.id})}">
+                        <button class="btn btn-outline-success">Chi tiết</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" th:if="${productList.hasPrevious()}"
+                       th:href="@{/(page=${productList.number - 1},productName=${name})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&#9754;</span>
+                    </a>
+                </li>
+                <li th:each="p,index: ${pageNumber} ">
+                    <div class="page-item active" th:if="${index.index == productList.number}">
+                        <a class="page-link"
+                           th:href="@{/(page=${index.index},productName=${name})}"
+                           th:text="${index.index + 1}"></a>
+                    </div>
+                    <div class="page-item" th:unless="${index.index == productList.number}">
+                        <a class="page-link"
+                           th:href="@{/(page=${index.index},productName=${name})}"
+                           th:text="${index.index + 1}"></a>
+                    </div>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${productList.hasNext()}"
+                       th:href="@{/(page=${productList.number + 1},productName=${name})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&#9755;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<form action="/delete">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4>Bạn có muốn xóa sản phẩm này không?</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span>Mã sản phẩm: </span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input name="id" class="form-control" type="text" readonly id="modalId">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-4">
+                            <span>Tên sản phẩm: </span>
+                        </div>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" readonly id="modalName">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                    <button type="submit" class="btn btn-outline-success">Có</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/js/bootstrap.min.js"></script>
+<script>
+    function deleteConfirm(id, name) {
+        document.getElementById("modalId").value = id;
+        document.getElementById("modalName").value = name;
+    }
+</script>
+</body>
+</html>
+

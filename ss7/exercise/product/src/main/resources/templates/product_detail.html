@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<nav th:replace="~{nav :: navBar}"></nav>
+<div class="container mt-5">
+    <div class="w-50 mx-auto">
+        <div class="text-center">
+            <h3>Chi tiết Sản Phẩm</h3>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3">
+                <span>Mã sản phẩm:</span>
+            </div>
+            <div class="col-lg-9">
+                <span th:text="${product.id}"></span>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3">
+                <span>Tên sản phẩm:</span>
+            </div>
+            <div class="col-lg-9">
+                <span th:text="${product.name}"></span>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3">
+                <span>Giá sản phẩm:</span>
+            </div>
+            <div class="col-lg-9">
+                <span th:text="${product.price}"></span>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3">
+                <span>Mô tả sản phẩm:</span>
+            </div>
+            <div class="col-lg-9">
+                <span th:text="${product.description}"></span>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3">
+                <span>Nhà sản xuất:</span>
+            </div>
+            <div class="col-lg-9">
+                <span th:text="${product.id}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
