@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class LibraryAspect {
     private static int count = 1;
 
-    @AfterReturning(pointcut = "execution(* com.codegym.library.controller.LibraryController.*(Integer,..))")
+    @Before(pointcut = "execution(* com.codegym.library.controller.LibraryController.*(Integer,..))")
     public void loggingActionChangeLibraryStatus(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         System.err.println("Method " + methodName +" successfully.");
