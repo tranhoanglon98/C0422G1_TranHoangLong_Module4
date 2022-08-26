@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto implements Validator {
+public class UserDto{
     private int id;
 
     @Size(min = 5, max = 45, message = "First name can only be from 5 to 45 characters!!!")
@@ -40,30 +40,4 @@ public class UserDto implements Validator {
     @NotBlank
     private String email;
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        UserDto userDto = (UserDto) target;
-
-        if (userDto.dayOfBirth.equals("")) {
-            errors.rejectValue("dayOfBirth", "age.valid", "must not be blank");
-        } else {
-            LocalDate dateOfBirth = null;
-            try {
-                dateOfBirth = LocalDate.parse(userDto.dayOfBirth);
-            } catch (Exception e) {
-                errors.rejectValue("dayOfBirth", "age.valid", "Please input right format");
-            }
-
-            int age = dateOfBirth.until(LocalDate.now()).getYears();
-
-            if (age < 18) {
-                errors.rejectValue("dayOfBirth", "age.valid", "Age must be greater than or equal to 18");
-            }
-        }
-    }
 }

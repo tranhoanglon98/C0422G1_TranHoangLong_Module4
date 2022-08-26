@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container w-75 mx-auto">
+    <div class="row mt-3">
+        <div class="col-lg-2">
+            <p>Tên:</p>
+        </div>
+        <div class="col-lg-10">
+            <input type="text" readonly th:value="${bookTitle.title}" class="form-control">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-2">
+            <p>Tác giả:</p>
+        </div>
+        <div class="col-lg-10">
+            <input type="text" readonly th:value="${bookTitle.author}" class="form-control">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-2">
+            <p>Thể loại:</p>
+        </div>
+        <div class="col-lg-10">
+            <input type="text" readonly th:value="${bookTitle.category}" class="form-control">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-2">
+            <p>Giới thiệu:</p>
+        </div>
+        <div class="col-lg-10" th:object="${bookTitle}">
+            <textarea readonly class="form-control" style="height: 200px" th:field="*{summary}"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <a th:href="@{/borrow(id=${bookTitle.id})}"><button>Mượn sách</button></a>
+    </div>
+</div>
+
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

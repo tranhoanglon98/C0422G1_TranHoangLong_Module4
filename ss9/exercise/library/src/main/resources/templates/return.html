@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container w-50 mx-auto mt-5">
+    <div class="row">
+        <form action="/check_return" method="post">
+            <div class="col-lg-9">
+                <input type="text" name="id" class="form-control" placeholder="" Nhập id của sách bạn muốn trả>
+            </div>
+            <div class="col-lg-3">
+                <button class="btn btn-outline-success" type="submit">Trả</button>
+            </div>
+        </form>
+        <div>
+            <p th:text="${mess}"></p>
+        </div>
+    </div>
+
+</div>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
