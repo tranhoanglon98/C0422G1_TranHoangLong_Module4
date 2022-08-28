@@ -15,7 +15,7 @@
             <div class="row" style="width: 95%">
                 <div class="col-lg-12 text-center"><h2>Add New Service</h2></div>
                 <div class="col-lg-12">
-                    <form class="row" action="/facility" method="post">
+                    <form class="row" action="/facility/save" method="post">
                         <div class="col-lg-2 ps-5">
                             <div class="form-check" onclick="showInput(roomInput.value)">
                                 <input type="hidden" value="${facility.facilityTypeId}" id="onload">
@@ -44,88 +44,111 @@
                                     <div class="row pb-4">
                                         <div class="col-lg-12"><span>Name:</span><span
                                                 class="text-danger">${nameErr}</span></div>
-                                        <div class="col-lg-12"><input type="text" name="name" class="form-control"
+                                        <div class="col-lg-12"><input type="text" class="form-control"
                                                                       placeholder="Service name"
                                                                       aria-label="Service name"
-                                                                      value="${facility.name}"></div>
+                                                                      th:field="*{facilityDto.name}"></div>
                                     </div>
                                     <div class="row pb-4">
                                         <div class="col-lg-12"><span>Area:</span><span
                                                 class="text-danger">${areaErr}</span></div>
-                                        <div class="col-lg-12"><input type="number" name="area" class="form-control"
+                                        <div class="col-lg-12"><input type="number" class="form-control"
                                                                       placeholder="Area"
-                                                                      aria-label="Area" value="${facility.area}"></div>
+                                                                      aria-label="Area" th:field="*{facilityDto.area}">
+                                        </div>
                                     </div>
                                     <div class="row pb-4">
                                         <div class="col-lg-12"><span>Cost:</span><span
                                                 class="text-danger">${costErr}</span></div>
                                         <div class="col-lg-12"><input type="number" name="cost" class="form-control"
                                                                       placeholder="Cost"
-                                                                      aria-label="Cost" value="${facility.cost}"></div>
+                                                                      aria-label="Cost" th:field="*{facilityDto.cost}">
+                                        </div>
                                     </div>
                                     <div class="row pb-4">
                                         <div class="col-lg-12"><span>Max people</span><span
                                                 class="text-danger">${maxPeopleErr}</span></div>
-                                        <div class="col-lg-12"><input type="number" name="people" class="form-control"
+                                        <div class="col-lg-12"><input type="number" class="form-control"
                                                                       placeholder="Max people"
                                                                       aria-label="Max people"
-                                                                      value="${facility.maxPeople}"></div>
+                                                                      th:field="*{facilityDto.maxPeople}"></div>
                                     </div>
                                     <div class="row pb-4">
                                         <div class="col-lg-12"><span>Rental type</span></div>
-                                        <div class="col-lg-12"><select class="form-control" name="rentalType">
-                                            <c:forEach items="${rentTypeList}" var="rentType">
-                                                <option value="${rentType.rentId}">${rentType.rentTypeName}</option>
-                                            </c:forEach>
-                                        </select></div>
-
+                                        <div class="col-lg-12">
+                                            <select class="form-select" th:field="*{facilityDto.rentType}">
+                                                <option th:each="rentType:${rentTypeList}"
+                                                        th:value="${rentType.id}" th:text="${rentType.name}">
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <button type="submit" name="action" value="add" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 Add
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 ps-5 pe-5">
+                                    <div class="row pb-4">
+                                        <div class="col-lg-12"><span>Facility type</span></div>
+                                        <div class="col-lg-12">
+                                            <select class="form-select" th:field="*{facilityDto.facilityType}">
+                                                <option th:each="type:${facilityTypeList}"
+                                                        th:value="${type.id}" th:text="${type.name}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="row pb-4" style="display: none" id="standard">
                                         <div class="col-lg-12"><span>Room standard</span></div>
-                                        <div class="col-lg-12"><input id="standardInput" type="text" name="standard"
+                                        <div class="col-lg-12"><input id="standardInput" type="text"
                                                                       class="form-control"
                                                                       placeholder="Room standard"
+                                                                      th:field="*{facilityDto.standardRoom}"
                                                                       aria-label="Room standard"></div>
                                     </div>
                                     <div class="row pb-4" style="display: none" id="convenience">
                                         <div class="col-lg-12"><span>Other convenience</span></div>
                                         <div class="col-lg-12"><input id="convenienceInput" type="text"
-                                                                      name="convenience" class="form-control"
+                                                                      class="form-control"
                                                                       placeholder="Other convenience"
+                                                                      th:field="*{facilityDto.otherConvenient}"
                                                                       aria-label="Other convenience"></div>
                                     </div>
                                     <div class="row pb-4" style="display: none" id="floors">
                                         <div class="col-lg-12"><span>Number of floors</span><span
                                                 class="text-danger">${floorErr}</span></div>
-                                        <div class="col-lg-12"><input id="floorsInput" type="number" name="floors"
+                                        <div class="col-lg-12"><input id="floorsInput" type="number"
                                                                       class="form-control"
                                                                       placeholder="Number of floors"
                                                                       aria-label="Number of floor"
+                                                                      th:field="*{facilityDto.floors}"
                                                                       value="${facility.floors}"></div>
                                     </div>
                                     <div class="row pb-4" style="display: block" id="free">
                                         <div class="col-lg-12"><span>Facility free</span></div>
-                                        <div class="col-lg-12"><input id="freeInput" type="text" name="free"
+                                        <div class="col-lg-12"><input id="freeInput" type="text"
                                                                       class="form-control"
                                                                       placeholder="Facility free"
+                                                                      th:field="*{facilityDto.facilityFree}"
                                                                       aria-label="Facility free"></div>
                                     </div>
                                     <div class="row pb-4" style="display: none" id="poolArea">
                                         <div class="col-lg-12"><span>Pool area:</span><span
                                                 class="text-danger">${poolErr}</span></div>
-                                        <div class="col-lg-12"><input id="poolAreaInput" type="number" name="Pool"
+                                        <div class="col-lg-12"><input id="poolAreaInput" type="number"
                                                                       class="form-control"
+                                                                      th:field="*{facilityDto.poolArea}"
                                                                       placeholder="Pool area" aria-label="Pool area"
                                                                       value="${facility.poolArea}"></div>
+                                    </div>
+                                    <div class="row pb-4">
+                                        <div class="col-lg-12">
+                                            <p><i th:text="${mess}" class="text-success"></i></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

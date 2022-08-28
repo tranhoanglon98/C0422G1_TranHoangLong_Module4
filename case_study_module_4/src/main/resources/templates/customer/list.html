@@ -8,152 +8,172 @@
     <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
-    <style>
-        #list td {
-            padding-left: 5px;
-        }
-
-        #list th {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-    </style>
 </head>
 <body style="font-family: Courgette,serif;background: #E0FFFF">
 <div class="container-fluid position-relative">
     <div class="row">
-        <div class="col-lg-10 d-flex justify-content-start  position-absolute" style="top: 10%">
-            <div class="row">
-                <div class="col-lg-12 ps-2 pe-2 text-dark">
-                    <div class="row text-center">
-                        <h2>Customer List</h2>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-lg-3">
-                            <a href="/customer?action=add">
-                                <button class="btn btn-dark text-warning">Add new Customer</button>
-                            </a>
-                        </div>
-                        <div class="col-lg-9">
-                            <form action="/customer" method="get">
-                                <div class="row">
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-3">
-                                        <input type="text" placeholder="Customer code" name="customerCode"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="text" placeholder="Customer Name" name="customerName"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <button type="submit" name="action" value="findByName"
-                                                class="btn btn-dark text-warning">search
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <table class="table text-dark w-100" id="list">
-                        <thead>
-                        <tr class="text-center">
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Birthday</th>
-                            <th>Gender</th>
-                            <th>ID card</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Customer type</th>
-                            <th>address</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td th:if="${true}">
-                                    Nam
-                                </td>
-                                <td th:if="${false}">
-                                    Nữ
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a href="/customer?action=update&id=${customer.customerCode}">
-                                        <button type="submit" name="action" value=""
-                                                class="btn btn-dark text-warning" style="padding: 6px"><span
-                                                class="material-symbols-outlined">edit</span></button>
-                                    </a>
-                                </td>
-                                <td>
-                                    <button type="submit"
-                                            onclick="getInfoToModal('${customer.customerCode}','${customer.name}','${customer.phone}','${customer.email}')"
-                                            class="btn btn-dark text-warning" style="padding: 6px"
-                                            data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="col-lg-10 d-flex justify-content-start  position-absolute ps-5 pe-5" style="top: 10%">
+            <div class="w-100 ps-2 pe-2 text-dark">
+                <div class="row text-center">
+                    <h2>Customer List</h2>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-lg-3">
+                        <a href="/customer/add">
+                            <button class="btn btn-dark text-warning">Add new Customer</button>
+                        </a>
+                    </div>
+                    <div class="col-lg-9">
+                        <form action="/customer" method="get">
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-lg-3">
+                                    <input type="text" placeholder="Customer code" name="customerCode"
+                                           class="form-control">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="text" placeholder="Customer Name" name="customerName"
+                                           class="form-control">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" name="action" value="findByName"
+                                            class="btn btn-dark text-warning w-100">search
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <table class="table text-dark w-100 mt-3" id="list">
+                    <thead>
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Day of birth</th>
+                        <th>Gender</th>
+                        <th>ID card</th>
+                        <th>Customer type</th>
+                        <th>address</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${result!=null}">
+                        <td th:text="${result}" class="text-danger" colspan="10"></td>
+                    </tr>
+                    <tr th:each="customer,status:${customerList}">
+                        <td th:text="${customerList.number * customerList.size + status.count}"></td>
+                        <td th:text="${customer.id}"></td>
+                        <td th:text="${customer.name}"></td>
+                        <td th:text="${customer.dayOfBirth}"></td>
+                        <td th:if="${customer.gender == true}">
+                            Male
+                        </td>
+                        <td th:if="${customer.gender == false}">
+                            Female
+                        </td>
+                        <td th:text="${customer.idCard}"></td>
+                        <td th:text="${customer.customerType.name}"></td>
+                        <td th:text="${customer.address}"></td>
+                        <td>
+                            <a th:href="@{/customer/edit(id = ${customer.id})}">
+                                <button type="button" style="height: 43px"
+                                        class="btn btn-dark text-warning p-2"><span
+                                        class="material-symbols-outlined">edit</span></button>
+                            </a>
+                        </td>
+                        <td class="pe-0">
+                            <button type="button" style="height: 43px"
+                                    th:attr="onclick=|getInfoToModal('${customer.id}','${customer.name}','${customer.phoneNumber}','${customer.email}')|"
+                                    class="btn btn-dark text-warning p-2"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link text-dark"
+                               th:href="@{/customer(page=0,productName=${name},productCode=${id})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&#9754;</span>
+                            </a>
+                        </li>
+                        <li th:each="p,index: ${pageNumber} ">
+                            <div id="page-item " class="page-item" th:if="${index.index == customerList.number}">
+                                <a class="page-link bg-dark text-warning"
+                                   th:href="@{/customer(page=${index.index},productName=${name},productCode=${id})}"
+                                   th:text="${index.index + 1}"></a>
+                            </div>
+                            <div class="page-item" th:unless="${index.index == customerList.number}">
+                                <a class="page-link text-dark"
+                                   th:href="@{/customer(page=${index.index},productName=${name},productCode=${id})}"
+                                   th:text="${index.index + 1}"></a>
+                            </div>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link text-dark"
+                               th:href="@{/customer(page=${customerList.totalPages - 1},productName=${name},productCode=${id})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&#9755;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <div class="col-lg-10 mt-1 p-0 pt-3 pb-3 d-flex justify-content-center">
+        <div class="col-lg-10 p-0 pt-2 d-flex justify-content-center">
             <img style="border-radius: 30px" class="shadow" width="93%"
                  src="https://img.freepik.com/premium-photo/white-plane-yellow-background-flat-lay-design-travel-concept-3d-rendering_494516-14.jpg?w=2000"
                  alt="">
         </div>
-        <nav th:replace="nav::nav_bar"></nav>
+        <nav th:replace="~{nav::nav_bar}"></nav>
     </div>
 </div>
-<form action="/customer" method="post" class="m-0">
+<form action="/customer/delete" method="get" class="m-0">
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel2">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel2">Delete Customer</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-3">Customer code:</div>
-                        <div class="col-lg-9">
+                    <div class="row mt-2">
+                        <div class="col-lg-4">Customer code:</div>
+                        <div class="col-lg-8">
                             <input type="text" readonly name="customerCode" id="code" class="form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-3">Name:</div>
-                        <div class="col-lg-9">
+                    <div class="row mt-2">
+                        <div class="col-lg-4">Name:</div>
+                        <div class="col-lg-8">
                             <input type="text" readonly id="name" class="form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-3">Phone:</div>
-                        <div class="col-lg-9">
+                    <div class="row mt-2">
+                        <div class="col-lg-4">Phone:</div>
+                        <div class="col-lg-8">
                             <input type="text" readonly id="phone" class="form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-3">Email:</div>
-                        <div class="col-lg-9">
+                    <div class="row mt-2">
+                        <div class="col-lg-4">Email:</div>
+                        <div class="col-lg-8">
                             <input type="text" readonly id="email" class="form-control">
                         </div>
+                    </div>
+                    <div class="mt-2 row text-center">
+                        <p class="text-danger">Are you sure that you want to delete this customer?</p>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="action" value="delete" class="btn btn-primary">Yes</button>
+                    <button type="submit" class="btn btn-outline-danger">Yes</button>
                 </div>
             </div>
         </div>
