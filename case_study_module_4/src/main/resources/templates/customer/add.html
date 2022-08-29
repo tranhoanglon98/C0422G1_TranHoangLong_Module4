@@ -38,7 +38,7 @@
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Gender: </span></span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{gender}" class="form-control">
+                                        <select th:field="*{gender}" class="form-select">
                                             <option th:value="false">Female</option>
                                             <option th:value="true">Male</option>
                                         </select>
@@ -79,7 +79,7 @@
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Customer type</span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{customerType}" class="form-control">
+                                        <select th:field="*{customerType}" class="form-select">
                                             <option th:each="type:${customerTypeList}"
                                                     th:value="${type.id}" th:text="${type.name}"></option>
                                         </select>

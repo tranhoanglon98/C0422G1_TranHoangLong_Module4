@@ -29,13 +29,12 @@ public class FuramaController {
 
     @GetMapping("/customer")
     public String goCustomerPage(Model model,
-                                 @RequestParam(required = false,defaultValue = "") String customerName,
-                                 @RequestParam(required = false,defaultValue = "0") Integer customerCode,
+                                 @RequestParam(required = false,defaultValue = "") String searchValue,
                                  @PageableDefault(size = 5) Pageable pageable){
-        Page<Customer> customerPage = this.customerService.findByNameAndId(customerName,customerCode,pageable);
+        Page<Customer> customerPage = this.customerService.findByNameOrId(searchValue,pageable);
         model.addAttribute("customerList",customerPage);
-        model.addAttribute("name",customerName);
-        model.addAttribute("id",customerCode);
+        model.addAttribute("searchValue",searchValue);
+
         if (customerPage.getTotalPages() > 0) {
             int[] pageNumber = new int[customerPage.getTotalPages()];
             model.addAttribute("pageNumber", pageNumber);

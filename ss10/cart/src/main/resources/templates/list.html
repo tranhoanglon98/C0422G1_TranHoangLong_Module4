@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shộp Pe</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+</head>
+<body>
+<div class="position-fixed " style="top: 15px;right: 15px">
+    <a href="/cart"><span class="material-symbols-outlined fs-2">shopping_cart</span></a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2>Đây là Shộp Pe</h2>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-4 mt-3 mb-3" th:each="product:${productList}">
+            <a th:href="@{/detail(id=${product.id})}">
+                <div class="card shadow" style="width: 18rem;">
+                    <img th:src="@{${product.imageLink}}" width="286px" height="350px" class="card-img-top border" alt="...">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${product.name}"></p>
+                        <span class="card-text" th:text="${product.price}"></span>
+                        <span> VNĐ</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

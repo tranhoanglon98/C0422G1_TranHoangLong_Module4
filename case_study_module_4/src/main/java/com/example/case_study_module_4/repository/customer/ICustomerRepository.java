@@ -8,9 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
 
-    Page<Customer> findByNameContaining(String name, Pageable pageable);
-
-    Page<Customer> findByNameContainingAndId(String name,Integer id, Pageable pageable);
+    Page<Customer> findByNameContainingOrId(String name,Integer id, Pageable pageable);
 
 
 }

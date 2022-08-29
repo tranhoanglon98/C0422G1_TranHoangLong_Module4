@@ -27,15 +27,11 @@
                         <form action="/customer" method="get">
                             <div class="row d-flex justify-content-end">
                                 <div class="col-lg-3">
-                                    <input type="text" placeholder="Customer code" name="customerCode"
-                                           class="form-control">
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="text" placeholder="Customer Name" name="customerName"
+                                    <input type="text" placeholder="Customer Name" name="searchValue"
                                            class="form-control">
                                 </div>
                                 <div class="col-lg-2">
-                                    <button type="submit" name="action" value="findByName"
+                                    <button type="submit"
                                             class="btn btn-dark text-warning w-100">search
                                     </button>
                                 </div>
@@ -98,7 +94,7 @@
                     <ul class="pagination">
                         <li class="page-item">
                             <a class="page-link text-dark"
-                               th:href="@{/customer(page=0,productName=${name},productCode=${id})}"
+                               th:href="@{/customer(page=0,searchValue=${searchValue})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9754;</span>
                             </a>
@@ -106,18 +102,18 @@
                         <li th:each="p,index: ${pageNumber} ">
                             <div id="page-item " class="page-item" th:if="${index.index == customerList.number}">
                                 <a class="page-link bg-dark text-warning"
-                                   th:href="@{/customer(page=${index.index},productName=${name},productCode=${id})}"
+                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue})}"
                                    th:text="${index.index + 1}"></a>
                             </div>
                             <div class="page-item" th:unless="${index.index == customerList.number}">
                                 <a class="page-link text-dark"
-                                   th:href="@{/customer(page=${index.index},productName=${name},productCode=${id})}"
+                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue})}"
                                    th:text="${index.index + 1}"></a>
                             </div>
                         </li>
                         <li class="page-item">
                             <a class="page-link text-dark"
-                               th:href="@{/customer(page=${customerList.totalPages - 1},productName=${name},productCode=${id})}"
+                               th:href="@{/customer(page=${customerList.totalPages - 1},searchValue=${searchValue})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9755;</span>
                             </a>
