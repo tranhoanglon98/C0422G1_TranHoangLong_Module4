@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface IFacilityService {
 
-    Page<Facility> findAll(Pageable pageable);
+    Page<Facility> findByNameOrId(String searchValue, Pageable pageable);
 
     void save(Facility facility);
 

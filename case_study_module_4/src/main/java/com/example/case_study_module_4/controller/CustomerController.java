@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
@@ -38,7 +39,7 @@ public class CustomerController {
         customerDto.validate(customerDto, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("customerTypeList", this.customerTypeService.findAll());
-            if (customerDto.getId()==null){
+            if (customerDto.getId() == null) {
                 return "/customer/add";
             }
             return "/customer/edit";
@@ -46,16 +47,18 @@ public class CustomerController {
 
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        this.customerService.save(customer);
-        if (customer.getId() == null){
+        if (customer.getId() == null) {
+            this.customerService.save(customer);
             redirectAttributes.addFlashAttribute("mess", "add " + customer.getName() + " successfully!");
             return "redirect:/customer/add";
         }
+
+        this.customerService.save(customer);
         return "redirect:/customer";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam Integer customerCode){
+    public String delete(@RequestParam Integer customerCode) {
         this.customerService.delete(customerCode);
         return "redirect:/customer";
     }
@@ -65,7 +68,7 @@ public class CustomerController {
         model.addAttribute("customerTypeList", this.customerTypeService.findAll());
         Customer customer = this.customerService.findById(id);
         CustomerDto customerDto = new CustomerDto();
-        BeanUtils.copyProperties(customer,customerDto);
+        BeanUtils.copyProperties(customer, customerDto);
         model.addAttribute("customerDto", customerDto);
         return "customer/edit";
     }

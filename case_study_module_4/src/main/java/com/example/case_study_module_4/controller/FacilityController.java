@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/facility")
-public class FacilityController {
+public class  FacilityController {
 
     @Autowired
     private IFacilityService facilityService;

@@ -47,9 +47,10 @@ public class FuramaController {
 
     @GetMapping("/facility")
     public String goFacilityPage(@PageableDefault(size = 5) Pageable pageable,
+                                 @RequestParam(required = false,defaultValue = "") String searchValue,
                                  Model model){
 
-        Page<Facility> facilityPage = this.facilityService.findAll(pageable);
+        Page<Facility> facilityPage = this.facilityService.findByNameOrId(searchValue,pageable);
         model.addAttribute("facilityList",facilityPage);
 
         if (facilityPage.getTotalPages() > 0) {

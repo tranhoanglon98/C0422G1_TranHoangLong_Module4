@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
@@ -17,28 +18,23 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerDto  implements Validator {
+public class CustomerDto implements Validator {
 
     private Integer id;
 
     @NotBlank
-    @Pattern(regexp = "^[A-ZĐ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâ]+" +
-            "( [A-ZĐ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâ]*)*$",
-            message = "Please input right format!!! ex: Trần Hoàng Long")
     private String name;
 
+    @NotBlank
     private String dayOfBirth;
 
+    @NotNull
     private Boolean gender;
 
     @NotBlank
-    @Pattern(regexp = "^[0-9]{9}|[0-9]{12}$",
-            message = "Please input right format!!! (9 or 12 numbers)")
     private String idCard;
 
     @NotBlank
-    @Pattern(regexp = "^((090)|(091)|(\\(84\\)\\+90)|(\\(84\\)\\+91))[0-9]{7}$",
-            message = "Please input right format!!!(090/091/(+84)+90/(+84)+91 and 7 numbers)")
     private String phoneNumber;
 
     @NotBlank
@@ -48,6 +44,7 @@ public class CustomerDto  implements Validator {
     @NotBlank
     private String address;
 
+    @NotNull
     private CustomerType customerType;
 
     @Override
@@ -59,14 +56,32 @@ public class CustomerDto  implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
 
-        if (customerDto.dayOfBirth == null || customerDto.dayOfBirth.equals("")){
-            errors.rejectValue("dayOfBirth","day.err","must not be blank");
-        }else {
+        if (!(customerDto.dayOfBirth == null || customerDto.dayOfBirth.equals(""))) {
             try {
                 LocalDate.parse(customerDto.dayOfBirth);
-            }catch (Exception e){
-                errors.rejectValue("dayOfBirth","day.err","please input right format");
+            } catch (Exception e) {
+                errors.rejectValue("dayOfBirth", "day.err", "please input right format");
+            }
+        }
+
+        if (!(customerDto.name == null || customerDto.name.trim().equals(""))) {
+            if (!customerDto.name.matches("^[A-ZĐ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâ]+" +
+                    "( [A-ZĐ][a-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâ]*)*$")) {
+                errors.rejectValue("name", "name.err", "Please input right format!!! ex: Trần Hoàng Long");
+            }
+        }
+
+        if (!(customerDto.idCard == null || customerDto.idCard.trim().equals(""))) {
+            if (!customerDto.idCard.matches("^[0-9]{9}|[0-9]{12}$")) {
+                errors.rejectValue("idCard", "idCard.err", "Please input right format!!! (9 or 12 numbers)");
+            }
+        }
+
+        if (!(customerDto.phoneNumber == null || customerDto.phoneNumber.trim().equals(""))) {
+            if (!customerDto.phoneNumber.matches("^((090)|(091)|(\\(84\\)\\+90)|(\\(84\\)\\+91))[0-9]{7}$")) {
+                errors.rejectValue("phoneNumber", "phone.err", "wrong format(090/091/(+84)+90/(+84)+91 and 7 nums)");
             }
         }
     }
+
 }

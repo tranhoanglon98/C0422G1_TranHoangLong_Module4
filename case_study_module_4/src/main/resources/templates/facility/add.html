@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/bootstrap-5.1.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
 </head>
@@ -17,28 +18,19 @@
                 <div class="col-lg-12">
                     <form class="row" action="/facility/save" method="post">
                         <div class="col-lg-2 ps-5">
-                            <div class="form-check" onclick="showInput(roomInput.value)">
-                                <input type="hidden" value="${facility.facilityTypeId}" id="onload">
-                                <input class="form-check-input" type="radio" value="3" name="typeId" id="roomInput"
-                                       checked>
-                                <label class="form-check-label" for="roomInput">
-                                    Room
-                                </label>
-                            </div>
-                            <div class="form-check" onclick="showInput(villaInput.value)">
-                                <input class="form-check-input" value="1" type="radio" name="typeId" id="villaInput">
-                                <label class="form-check-label" for="villaInput">
-                                    Villa
-                                </label>
-                            </div>
-                            <div class="form-check" onclick="showInput(houseInput.value)">
-                                <input class="form-check-input" value="2" type="radio" name="typeId" id="houseInput">
-                                <label class="form-check-label" for="houseInput">
-                                    House
-                                </label>
+                            <div class="form-check" th:each="type:${facilityTypeList}" th:attr="onclick=|showInput('${type.id}')|">
+                                <input type="hidden" th:value="${type.id}" id="onload">
+                                <div th:if="${facilityTypeList.indexOf(type) == 0}">
+                                    <input class="form-check-input" type="radio" name="type"  th:value="${type.id}"  th:id="${type.name}"
+                                           checked>
+                                </div>
+                                <div th:unless="${facilityTypeList.indexOf(type) == 0}">
+                                    <input class="form-check-input" type="radio" name="type"   th:value="${type.id}"  th:id="${type.name}">
+                                </div>
+                                <label class="form-check-label" th:for="${type.name}" th:text="${type.name}"></label>
                             </div>
                         </div>
-                        <div class="col-lg-10 fw-bold text-dark">
+                        <div class="col-lg-10 text-dark">
                             <div class="row">
                                 <div class="col-lg-6 ps-5 pe-5">
                                     <div class="row pb-4">
@@ -92,16 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 ps-5 pe-5">
-                                    <div class="row pb-4">
-                                        <div class="col-lg-12"><span>Facility type</span></div>
-                                        <div class="col-lg-12">
-                                            <select class="form-select" th:field="*{facilityDto.facilityType}">
-                                                <option th:each="type:${facilityTypeList}"
-                                                        th:value="${type.id}" th:text="${type.name}">
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" th:field="*{facilityDto.facilityType}" id="type">
                                     <div class="row pb-4" style="display: none" id="standard">
                                         <div class="col-lg-12"><span>Room standard</span></div>
                                         <div class="col-lg-12"><input id="standardInput" type="text"
@@ -170,7 +153,7 @@
     window.onload = showInput(code);
 
     function showInput(value) {
-        console.log(value)
+        document.getElementById("type").value = value;
         switch (value) {
             case "2":
                 console.log(value);

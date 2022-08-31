@@ -19,16 +19,22 @@
     </div>
     <div class="row mt-5">
         <div class="col-lg-4 mt-3 mb-3" th:each="product:${productList}">
-            <a th:href="@{/detail(id=${product.id})}">
-                <div class="card shadow" style="width: 18rem;">
-                    <img th:src="@{${product.imageLink}}" width="286px" height="350px" class="card-img-top border" alt="...">
+                <div class="card shadow p-2 text-center" style="width: 18rem;">
+                    <img th:src="@{${product.imageLink}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <p class="card-text" th:text="${product.name}"></p>
                         <span class="card-text" th:text="${product.price}"></span>
                         <span> VNĐ</span>
+                        <hr>
+                        <a th:href="@{/add(id=${product.id})}">
+                            <button class="btn btn-warning w-100">Thêm vào giỏ hàng</button>
+                        </a>
+                        <hr>
+                        <a th:href="@{/detail(id=${product.id})}">
+                            <button class="btn btn-warning w-100">Xem chi tiết</button>
+                        </a>
                     </div>
                 </div>
-            </a>
         </div>
     </div>
 </div>
