@@ -3,7 +3,6 @@ package com.example.restful_blog.controller;
 import com.example.restful_blog.dto.BlogDto;
 import com.example.restful_blog.model.Blog;
 import com.example.restful_blog.service.IBlogService;
-import com.example.restful_blog.service.ICategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,7 +51,7 @@ public class BlogController {
         this.blogService.save(blog);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
+
     @GetMapping("/detail")
     public ResponseEntity<Blog> goDetail(@RequestParam int id) {
         Blog blog = this.blogService.findById(id);
