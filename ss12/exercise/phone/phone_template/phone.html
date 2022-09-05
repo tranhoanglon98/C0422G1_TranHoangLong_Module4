@@ -5,50 +5,250 @@
     <title>Phone management</title>
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
 </head>
-<body>
+<body class="container">
 <div>
-    <table class="table table-hover">
-        <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>Model</th>
-            <th>Price</th>
-            <th>Producer</th>
-            <th>Action</th>
-        </tr>
-        <tbody id="tableBody">
+    <div>
+        <button class="btn btn-outline-success" id="showAddButton">Add new phone</button>
+    </div>
+    <div id="table" class="mx-auto w-100">
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Producer</th>
+                <th>Action</th>
+            </tr>
+            <tbody id="tableBody">
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            <button id="showMoreButton" class="btn btn-outline-success">Show more</button>
+        </div>
+    </div>
+    <div id="addForm">
+        <div class="text-center">
+            <h3>Add new phone</h3>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="modelInput" placeholder="ex: Iphone 155">
+            <label for="modelInput">Model</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="priceInput" placeholder="price">
+            <label for="priceInput">Price</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="producerInput" placeholder="producer">
+            <label for="producerInput">Producer</label>
+        </div>
+        <div>
+            <button class="btn btn-outline-success" type="button" id="addButton">Add</button>
+            <button class="btn btn-outline-success" type="button" id="backButton">Back</button>
+        </div>
+    </div>
+    <div id="updateForm">
+        <div class="text-center">
+            <h3>Update phone</h3>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" readonly id="idUpdate" placeholder="id">
+            <label for="modelInput">ID</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="modelInputUpdate" placeholder="ex: Iphone 155">
+            <label for="modelInput">Model</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="priceInputUpdate" placeholder="price">
+            <label for="priceInput">Price</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="producerInputUpdate" placeholder="producer">
+            <label for="producerInput">Producer</label>
+        </div>
+        <div>
+            <button class="btn btn-outline-success" type="button" id="saveButton">Save</button>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalInfo" style="display: none"></p>
+                    <p class="text-danger">Are you sure that you want delete this phone??</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="confirmDelete" data-bs-dismiss="modal" class="btn btn-danger">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-<script>
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/?size=" + size + "&searchValue=" + searchValue,
-        success: function (blogPage) {
-            let blogList = blogPage.content;
-            let htmlStr = '';
-            for (let i = 0; i < blogList.length; i++) {
-                htmlStr += `<tr>
-                                    <td>${i + 1}</td>
-                                    <td>${blogList[i].id}</td>
-                                    <td>${blogList[i].title}</td>
-                                    <td>${blogList[i].author}</td>
-                                    <td>${blogList[i].category.category}</td>
-                                    <td>${blogList[i].summary}</td>
-                                </tr>`
-            }
-            $("#tableBody").html(htmlStr)
-        },
-        error: function (resultError) {
-
-        }
-    })
-</script>
-
 <script src="static/js/jquery-3.6.1.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
+<script>
+    let size = 0;
+
+    showList()
+
+    $("#showMoreButton").click(function () {
+        showList();
+    });
+
+    function showList() {
+        $("#addForm").hide()
+        $("#updateForm").hide()
+        $("#table").show()
+        size += 4
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080?size=" + size,
+            success: function (phoneList) {
+                let phones = phoneList.content;
+                let htmlStr = "";
+                for (let i = 0; i < phones.length; i++) {
+                    htmlStr += `<tr>
+                                    <td>${i + 1}</td>
+                                    <td>${phones[i].id}</td>
+                                    <td>${phones[i].model}</td>
+                                    <td>${phones[i].price}</td>
+                                    <td>${phones[i].producer}</td>
+                                    <td><button id="updateButton" onclick="updatePhone(${phones[i].id})" class="btn btn-outline-warning">Update</button></td>
+                                    <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal" onclick="getInfoToModal(${phones[i].id})">
+                                    delete</button></td>
+                                </tr>`
+                }
+                $("#tableBody").html(htmlStr)
+            },
+            error: function (resultError) {
+                $("#tableBody").html("Not found!!")
+            }
+        })
+    }
+
+    $("#showAddButton").click(function () {
+        $("#addForm").show()
+        $("#table").hide()
+        $("#updateForm").hide()
+        $("#showAddButton").hide()
+    });
+
+    $("#addButton").click(function () {
+        let modelPhone = $("#modelInput").val()
+        let phonePrice = $("#priceInput").val()
+        let phoneProducer = $("#producerInput").val()
+        let phoneObj = {
+            model: modelPhone,
+            price: phonePrice,
+            producer: phoneProducer
+        }
+
+        console.log(phoneObj)
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/add",
+            data: JSON.stringify(phoneObj),
+            success: function (resultSuccess) {
+                alert("Add successfully")
+            },
+            error: function (resultError) {
+                alert("Add failed");
+            }
+        })
+        $("#modelInput").val("")
+        $("#priceInput").val("")
+        $("#producerInput").val("")
+
+    });
+
+    $("#backButton").click(function () {
+        size = 0
+        showList()
+    });
+
+    function getInfoToModal(id) {
+        $("#modalInfo").val(id)
+    }
+
+    $("#confirmDelete").click(function () {
+        let id = $("#modalInfo").val()
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/delete?id=" + id,
+            success: function (resultSuccess) {
+                alert("Delete oke")
+                size -= 4
+                showList()
+            },
+            error: function (resultError) {
+                alert("Delete not oke")
+            }
+        })
+
+    });
+
+    function updatePhone(id) {
+        $("#updateForm").show()
+        $("#table").hide()
+        $("#addForm").hide()
+        $("#showAddButton").hide()
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/showUpdate?id=" + id,
+            success: function (resultSuccess) {
+                $("#idUpdate").val(resultSuccess.id)
+                $("#modelInputUpdate").val(resultSuccess.model)
+                $("#priceInputUpdate").val(resultSuccess.price)
+                $("#producerInputUpdate").val(resultSuccess.producer)
+            },
+            error: function (resultError) {
+                alert("error")
+            }
+        });
+    }
+
+    $("#saveButton").click(function () {
+        let phone = {
+            id : $("#idUpdate").val(),
+            model : $("#modelInputUpdate").val(),
+            price : $("#priceInputUpdate").val(),
+            producer : $("#producerInputUpdate").val()
+        }
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            url: "http://localhost:8080/update",
+            data: JSON.stringify(phone),
+            success: function (resultSuccess) {
+                alert("update successfully")
+                size -=4
+                showList()
+            },
+            error: function (resultError) {
+                alert("update failed");
+            }
+        })
+    });
+</script>
 </body>
 </html>
