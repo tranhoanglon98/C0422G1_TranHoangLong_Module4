@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Đây là Bolg</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/add">Thêm mới blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/category/add">Thêm mới thể loại</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/category/list">Thể loại</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <select class="form-select" name="categorySearch">
+                    <option value="0">Chọn thể loại</option>
+                    <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.category}"></option>
+                </select>
+                <input name="titleSearch"  class="form-control me-2" type="search" placeholder="nhập tiêu đề blog" aria-label="Search">
+                <button  class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

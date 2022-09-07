@@ -20,15 +20,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private AppConfig appConfig;
-
-    @Autowired
     private DataSource dataSource;
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(appConfig.passwordEncoder());
     }
 
     @Override
