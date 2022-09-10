@@ -1,17 +1,16 @@
 package com.example.case_study_module_4.model.customer;
 
-import lombok.AllArgsConstructor;
+import com.example.case_study_module_4.model.contract.Contract;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "khach_hang")
 public class Customer {
 
@@ -44,5 +43,8 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "ma_loai_khach",referencedColumnName = "ma_loai_khach")
     private CustomerType customerType;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Contract> contracts;
 
 }

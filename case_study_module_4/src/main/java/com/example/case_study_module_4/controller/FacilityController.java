@@ -9,8 +9,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/facility")
@@ -25,13 +27,13 @@ public class  FacilityController {
     @Autowired
     IRentTypeService rentTypeService;
 
-    @GetMapping("/delete")
+    @GetMapping("delete")
     public String delete(@RequestParam Integer id){
         this.facilityService.delete(id);
         return "redirect:/facility";
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public String goFacilityAddPage(Model model){
         model.addAttribute("facilityDto",new FacilityDto());
         model.addAttribute("facilityTypeList",this.facilityTypeService.findAll());
@@ -40,19 +42,35 @@ public class  FacilityController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute FacilityDto facilityDto,
-                       Model model, RedirectAttributes redirectAttributes){
+    public String save(@ModelAttribute @Valid FacilityDto facilityDto,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes,
+                       Model model){
+         new FacilityDto().validate(facilityDto,bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("facilityTypeList",this.facilityTypeService.findAll());
+            model.addAttribute("rentTypeList",this.rentTypeService.findAll());
+            if (facilityDto.getId() == null){
+                model.addAttribute("mess","Add field");
+                return "/facility/add";
+            }
+            model.addAttribute("mess","Edit field");
+            return "/facility/edit";
+        }
+
         Facility facility = new Facility();
         BeanUtils.copyProperties(facilityDto,facility);
         this.facilityService.save(facility);
         if (facility.getId()==null){
-            redirectAttributes.addFlashAttribute("mess","Add facility successfully!");
+            redirectAttributes.addFlashAttribute("mess","Add successfully!");
             return "redirect:/facility/add";
         }
+        redirectAttributes.addFlashAttribute("mess","Edit successfully!");
         return "redirect:/facility";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("edit")
     public String goFacilityEditPage(@RequestParam Integer id, Model model){
         FacilityDto facilityDto = new FacilityDto();
         Facility facility = this.facilityService.findById(id);

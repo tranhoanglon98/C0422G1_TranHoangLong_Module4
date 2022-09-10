@@ -2,23 +2,15 @@ package com.example.case_study_module_4.dto;
 
 import com.example.case_study_module_4.model.facility.FacilityType;
 import com.example.case_study_module_4.model.facility.RentType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class FacilityDto implements Validator {
 
     private Integer id;
@@ -27,27 +19,23 @@ public class FacilityDto implements Validator {
     private String name;
 
     @NotBlank
-    private Integer area;
+    private String area;
 
     @NotBlank
-    private Double cost;
+    private String cost;
 
     @NotBlank
-    private Integer maxPeople;
+    private String maxPeople;
 
     @NotBlank
     private String standardRoom;
 
-    @NotBlank
     private String otherConvenient;
 
-    @NotBlank
-    private Double poolArea;
+    private String poolArea;
 
-    @NotBlank
-    private Integer floors;
+    private String floors;
 
-    @NotBlank
     private String facilityFree;
 
     private RentType rentType;
@@ -64,8 +52,66 @@ public class FacilityDto implements Validator {
         FacilityDto facilityDto = (FacilityDto) target;
 
         if (!(facilityDto.name == null || facilityDto.name.trim().equals(""))) {
-            if (facilityDto.name.matches("^([1-9A-Z][\\w]*)+( [1-9A-Z][\\w]*)*$")) {
+            if (!(facilityDto.name.matches("^([1-9A-Z][\\w]*)+( [1-9A-Z][\\w]*)*$"))) {
                 errors.rejectValue("name", "name.err", "please input right format(ex: Villa123)");
+            }
+        }
+
+
+        if (!(facilityDto.area == null || facilityDto.area.trim().equals(""))) {
+            try {
+                int area = Integer.parseInt(facilityDto.area);
+                if (area < 0) {
+                    errors.rejectValue("name", "area.err", "Area cannot be negative");
+                }
+            } catch (Exception e) {
+                errors.rejectValue("name", "area.err", "please input right format(Integer number)");
+            }
+        }
+
+
+        if (!(facilityDto.cost == null || facilityDto.cost.trim().equals(""))) {
+            try {
+                double area = Double.parseDouble(facilityDto.cost);
+                if (area < 0) {
+                    errors.rejectValue("cost", "cost.err", "Cost cannot be negative");
+                }
+            } catch (Exception e) {
+                errors.rejectValue("cost", "cost.err", "please input right format (Double number)");
+            }
+        }
+
+
+        if (!(facilityDto.maxPeople == null || facilityDto.maxPeople.trim().equals(""))) {
+            try {
+                int area = Integer.parseInt(facilityDto.maxPeople);
+                if (area < 0) {
+                    errors.rejectValue("maxPeople", "maxPeople.err", "maxPeople cannot be negative");
+                }
+            } catch (Exception e) {
+                errors.rejectValue("maxPeople", "maxPeople.err", "please input right format(Integer number)");
+            }
+        }
+
+        if (!(facilityDto.poolArea == null || facilityDto.poolArea.trim().equals(""))) {
+            try {
+                double area = Double.parseDouble(facilityDto.poolArea);
+                if (area < 0) {
+                    errors.rejectValue("poolArea", "poolArea.err", "poolArea cannot be negative");
+                }
+            } catch (Exception e) {
+                errors.rejectValue("poolArea", "poolArea.err", "please input right format (Double number)");
+            }
+        }
+
+        if (!(facilityDto.floors == null || facilityDto.floors.trim().equals(""))) {
+            try {
+                int area = Integer.parseInt(facilityDto.floors);
+                if (area < 0) {
+                    errors.rejectValue("floors", "floors.err", "floors cannot be negative");
+                }
+            } catch (Exception e) {
+                errors.rejectValue("floors", "floors.err", "please input right format(Integer number)");
             }
         }
     }

@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>Customer</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>
+    <style>
+        .table-hover > tbody > tr:hover > * {
+            --bs-table-accent-bg: var(--bs-table-hover-bg);
+            color: #000000;
+        }
+
+        .table-hover > tbody > tr:hover button {
+            background: #000000;
+        }
+    </style>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
 </head>
 <body style="font-family: Courgette,serif;background: #E0FFFF">
 <div class="container-fluid position-relative">
     <div class="row">
         <div class="col-lg-10 d-flex justify-content-start  position-absolute ps-5 pe-5" style="top: 10%">
-            <div class="w-100 ps-2 pe-2 text-dark">
+            <div class="w-100 ps-4 pe-4 text-dark">
                 <div class="row text-center">
                     <h2>Customer List</h2>
                 </div>
@@ -39,11 +49,10 @@
                         </form>
                     </div>
                 </div>
-                <table class="table text-dark table-responsive w-100 mt-3" id="list">
+                <table class="table table-hover text-dark table-responsive w-100 mt-3" id="list">
                     <thead>
                     <tr class="text-center">
                         <th>#</th>
-                        <th>Code</th>
                         <th>Name</th>
                         <th>Day of birth</th>
                         <th>Gender</th>
@@ -60,7 +69,6 @@
                     </tr>
                     <tr th:each="customer,status:${customerList}">
                         <td th:text="${customerList.number * customerList.size + status.count}"></td>
-                        <td th:text="${customer.id}"></td>
                         <td th:text="${customer.name}"></td>
                         <td th:text="${customer.dayOfBirth}"></td>
                         <td th:if="${customer.gender == true}">
@@ -123,7 +131,7 @@
             </div>
         </div>
         <div class="col-lg-10 p-0 pt-2 d-flex justify-content-center">
-            <img style="border-radius: 30px" class="shadow" width="93%"
+            <img style="border-radius: 30px" class="shadow" width="89%"
                  src="https://img.freepik.com/premium-photo/white-plane-yellow-background-flat-lay-design-travel-concept-3d-rendering_494516-14.jpg?w=2000"
                  alt="">
         </div>
@@ -175,9 +183,27 @@
         </div>
     </div>
 </form>
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src=/js/bootstrap.min.js></script>
 <script>
-
-
     function getInfoToModal(id, name, phone, email) {
         document.getElementById("code").value = id;
         document.getElementById("name").value = name;
@@ -185,18 +211,12 @@
         document.getElementById("email").value = email;
     }
 
-
-</script>
-<script src="/jquery/jquery-3.6.0.min.js"></script>
-<script src=/js/bootstrap.min.js></script>
-<script>
-    $(document).ready(function () {
-        $('#list').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 4
-        });
-    });
+    $(document).ready(function (){
+        if ($("#modalInfo").val() != null){
+            console.log($("#modalInfo").val())
+            $("#exampleModalToggle").modal('show')
+        }
+    })
 </script>
 </body>
 </html>

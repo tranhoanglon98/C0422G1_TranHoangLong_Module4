@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>Edit Customer</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
@@ -14,7 +14,9 @@
     <div class="row">
         <div class="col-lg-10 d-flex pt-2 justify-content-center  position-absolute" style="top: 7%">
             <div class="row" style="width: 95%">
-                <div class="col-lg-12 text-center"><h2>Update Customer</h2></div>
+                <div class="col-lg-12 text-center">
+                    <h2>Edit Customer</h2>
+                </div>
                 <div class="col-lg-12 text-dark">
                     <form action="/customer/save" th:object="${customerDto}" method="post">
                         <input type="hidden" th:field="*{id}">
@@ -99,14 +101,40 @@
             </div>
         </div>
         <div class="col-lg-10 p-0 pt-2 d-flex justify-content-center">
-            <img style="border-radius: 30px" class="shadow" width="93%"
+            <img style="border-radius: 30px" class="shadow" width="89%"
                  src="https://img.freepik.com/premium-photo/white-plane-yellow-background-flat-lay-design-travel-concept-3d-rendering_494516-14.jpg?w=2000"
                  alt="">
         </div>
         <nav th:replace="nav::nav_bar"></nav>
     </div>
 </div>
-<script src="/jquery/jquery-3.6.0.min.js"></script>
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function (){
+        if ($("#modalInfo").val() != null){
+            console.log($("#modalInfo").val())
+            $("#exampleModalToggle").modal('show')
+        }
+    })
+</script>
 </body>
 </html>

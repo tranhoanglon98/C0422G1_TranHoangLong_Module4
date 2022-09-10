@@ -6,15 +6,31 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
+    <style>
+        .table-hover > tbody > tr:hover > * {
+            --bs-table-accent-bg: var(--bs-table-hover-bg);
+            color: #FFD700;
+        }
+
+        .table-hover > tbody > tr:hover button {
+            color: #FFD700;
+            background: #000000;
+        }
+    </style>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
 </head>
-<body style="font-family: Bad Script,serif;background: #E0FFFF">
+<body style="font-family: Courgette,serif;background: #E0FFFF">
 <div class="container-fluid position-relative">
     <div class="row">
         <div class="col-lg-10 d-flex justify-content-center  position-absolute" style="top: 10%">
-            <div class="row">
-                <table class="table table-hover">
-                    <tr>
+            <div class="row" style="width: 93%">
+                <div class="row text-center text-light">
+                    <h2>Contract List</h2>
+                </div>
+                <table class="table mt-5 table-hover text-light fst-normal">
+                    <thead>
+                    <tr class="text-center">
                         <th>#</th>
                         <th>Service</th>
                         <th>Customer</th>
@@ -22,26 +38,62 @@
                         <th>Check-out</th>
                         <th>Deposit</th>
                         <th>Total</th>
-                        <th>Accompanied service</th>
+                        <th colspan="2">Attach facility</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>house-1</td>
-                        <td>long</td>
-                        <td>20/12/2022</td>
-                        <td>30/12/2022</td>
-                        <td>3000000</td>
+                    </thead>
+                    <tbody>
+                    <tr th:each="contract,status: ${contractPage}">
+                        <td th:text="${contractPage.size * contractPage.number + status.count}"></td>
+                        <td th:text="${contract.facility.name}"></td>
+                        <td th:text="${contract.customer.name}"></td>
+                        <td th:text="${contract.startDay}"></td>
+                        <td th:text="${contract.endDay}"></td>
+                        <td th:text="${contract.deposit}"></td>
                         <td>5000000</td>
                         <td>
                             <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                    data-bs-target="#newContract"><span class="material-symbols-outlined">add</span>
+                                    data-bs-target="#newContract">+</span>
                             </button>
-                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal"
                                     data-bs-target="#accompaniedService">List of accompanied service
                             </button>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link text-dark"
+                               th:href="@{/contract(page=0)}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&#9754;</span>
+                            </a>
+                        </li>
+                        <li th:each="p,index: ${pageNumber} ">
+                            <div id="page-item " class="page-item"
+                                 th:if="${index.index == contractPage.number}">
+                                <a class="page-link bg-dark text-light"
+                                   th:href="@{/contract(page=${index.index})}"
+                                   th:text="${index.index + 1}"></a>
+                            </div>
+                            <div class="page-item" th:unless="${index.index == contractPage.number}">
+                                <a class="page-link text-dark"
+                                   th:href="@{/contract(page=${index.index})}"
+                                   th:text="${index.index + 1}"></a>
+                            </div>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link text-dark"
+                               th:href="@{/contract(page=${contractPage.totalPages - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&#9755;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
@@ -113,15 +165,17 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-10 mt-2 pt-3 pb-3 d-flex justify-content-center">
-            <img style="border-radius: 30px" width="97%" src="https://the-steppe.com/images/news/8852-kKLDWJip.jpg"
-                 alt="">
+        <div class="col-lg-10 mt-2 d-flex justify-content-center">
+            <img style="border-radius: 30px" width="97%" src="/img/red_background.jpg" alt="">
         </div>
         <nav th:replace="nav::nav_bar"></nav>
     </div>
 </div>
 
+<script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script>
+
+</script>
 </body>
 </html>

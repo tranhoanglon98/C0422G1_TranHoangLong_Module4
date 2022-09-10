@@ -1,9 +1,7 @@
 package com.example.case_study_module_4.dto;
 
 import com.example.case_study_module_4.model.customer.CustomerType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,13 +9,10 @@ import org.springframework.validation.Validator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CustomerDto implements Validator {
 
     private Integer id;

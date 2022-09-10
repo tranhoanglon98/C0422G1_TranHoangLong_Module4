@@ -40,8 +40,10 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("customerTypeList", this.customerTypeService.findAll());
             if (customerDto.getId() == null) {
+                model.addAttribute("mess", "Add failed");
                 return "/customer/add";
             }
+            model.addAttribute("mess", "Edit failed");
             return "/customer/edit";
         }
 
@@ -49,17 +51,18 @@ public class CustomerController {
         BeanUtils.copyProperties(customerDto, customer);
         if (customer.getId() == null) {
             this.customerService.save(customer);
-            redirectAttributes.addFlashAttribute("mess", "add " + customer.getName() + " successfully!");
+            redirectAttributes.addFlashAttribute("mess", "Add successfully!");
             return "redirect:/customer/add";
         }
-
+        redirectAttributes.addFlashAttribute("mess", "Edit successfully!");
         this.customerService.save(customer);
         return "redirect:/customer";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam Integer customerCode) {
+    public String delete(@RequestParam Integer customerCode, RedirectAttributes redirectAttributes) {
         this.customerService.delete(customerCode);
+        redirectAttributes.addFlashAttribute("mess", "Delete successfully!");
         return "redirect:/customer";
     }
 
