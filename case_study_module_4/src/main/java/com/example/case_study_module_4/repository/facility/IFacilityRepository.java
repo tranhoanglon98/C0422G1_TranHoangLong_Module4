@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IFacilityRepository extends JpaRepository<Facility,Integer> {
 
-    Page<Facility> findByNameContainingOrId(String name, Integer id, Pageable pageable);
+    Page<Facility> findByNameContaining(String name, Pageable pageable);
 }

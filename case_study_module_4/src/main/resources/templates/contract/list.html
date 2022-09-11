@@ -41,35 +41,17 @@
                         <th colspan="2">Attach facility</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr th:each="contract,status: ${contractPage}">
-                        <td th:text="${contractPage.size * contractPage.number + status.count}"></td>
-                        <td th:text="${contract.facility.name}"></td>
-                        <td th:text="${contract.customer.name}"></td>
-                        <td th:text="${contract.startDay}"></td>
-                        <td th:text="${contract.endDay}"></td>
-                        <td th:text="${contract.deposit}"></td>
-                        <td>5000000</td>
-                        <td>
-                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                    data-bs-target="#newContract">+</span>
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal"
-                                    data-bs-target="#accompaniedService">List of accompanied service
-                            </button>
-                        </td>
-                    </tr>
+                    <tbody id="tableBody">
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link text-dark"
-                               th:href="@{/contract(page=0)}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&#9754;</span>
+                            <a class="page-link text-dark" th:if="${contractPage.hasPrevious()}"
+                               href="" aria-label="Previous">
+                                <span aria-hidden="true"
+                                      th:attr="onclick=|showContractTable(${contractPage.number - 1})|">
+                                    &#9754;</span>
                             </a>
                         </li>
                         <li th:each="p,index: ${pageNumber} ">
@@ -86,10 +68,10 @@
                             </div>
                         </li>
                         <li class="page-item">
-                            <a class="page-link text-dark"
-                               th:href="@{/contract(page=${contractPage.totalPages - 1})}"
+                            <a class="page-link text-dark" th:if="${contractPage.hasNext()}"
                                aria-label="Previous">
-                                <span aria-hidden="true">&#9755;</span>
+                                <span aria-hidden="true"
+                                      th:attr="onclick=|showContractTable(${contractPage.number + 1})|">&#9755;</span>
                             </a>
                         </li>
                     </ul>
@@ -175,7 +157,25 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script>
-
+    $(document).ready(function (){
+        showContractTable()
+    })
+    function showContractTable() {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/update",
+            success: function (contractPage) {
+                alert("update successfully")
+            },
+            error: function (resultError) {
+                alert("update failed");
+            }
+        })
+        }
 </script>
 </body>
 </html>

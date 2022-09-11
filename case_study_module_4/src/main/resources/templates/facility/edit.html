@@ -23,13 +23,13 @@
                                 <input type="hidden" th:field="*{facilityType}" id="type">
                                 <div class="form-check" th:each="type:${facilityTypeList}"
                                      th:attr="onclick=|showInput('${type.id}')|">
-                                    <input type="hidden" th:value="${type.id}" id="onload">
-                                    <div th:if="${facilityTypeList.indexOf(type) == 0}">
+                                    <div th:if="${type.id == facilityDto.facilityType.id}">
                                         <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
                                                th:id="${type.name}"
                                                checked>
+                                        <input type="hidden" th:value="${type.id}" id="onload">
                                     </div>
-                                    <div th:unless="${facilityTypeList.indexOf(type) == 0}">
+                                    <div th:unless="${type.id == facilityDto.facilityType.id}">
                                         <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
                                                th:id="${type.name}">
                                     </div>

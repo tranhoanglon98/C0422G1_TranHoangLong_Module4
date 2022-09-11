@@ -102,16 +102,30 @@ public class FacilityDto implements Validator {
             } catch (Exception e) {
                 errors.rejectValue("poolArea", "poolArea.err", "please input right format (Double number)");
             }
-        }
+        } else {
+            if (facilityDto.facilityType.getId() == 1) {
+                errors.rejectValue("poolArea", "poolArea.err", "must not be blank");
+            }
 
-        if (!(facilityDto.floors == null || facilityDto.floors.trim().equals(""))) {
-            try {
-                int area = Integer.parseInt(facilityDto.floors);
-                if (area < 0) {
-                    errors.rejectValue("floors", "floors.err", "floors cannot be negative");
+            if (!(facilityDto.floors == null || facilityDto.floors.trim().equals(""))) {
+                try {
+                    int area = Integer.parseInt(facilityDto.floors);
+                    if (area < 0) {
+                        errors.rejectValue("floors", "floors.err", "floors cannot be negative");
+                    }
+                } catch (Exception e) {
+                    errors.rejectValue("floors", "floors.err", "please input right format(Integer number)");
                 }
-            } catch (Exception e) {
-                errors.rejectValue("floors", "floors.err", "please input right format(Integer number)");
+            } else {
+                if (facilityDto.facilityType.getId() != 3) {
+                    errors.rejectValue("floors", "floors.err", "must not be blank");
+                }
+            }
+
+            if (facilityDto.facilityType.getId() != 3) {
+                if (facilityDto.otherConvenient == null || facilityDto.otherConvenient.trim().equals("")) {
+                    errors.rejectValue("otherConvenient", "otherConvenient.err", "must not be blank");
+                }
             }
         }
     }

@@ -39,7 +39,7 @@
                             <form action="/facility" method="get">
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-lg-3">
-                                        <input type="text" placeholder="Name or ID" name="searchValue"
+                                        <input type="text" placeholder="facility name" name="searchValue"
                                                class="form-control">
                                     </div>
                                     <div class="col-lg-2">
@@ -95,8 +95,8 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="page-link text-primary"
-                                       th:href="@{/facility(page=0)}"
+                                    <a class="page-link text-primary" th:if="${facilityList.hasPrevious()}"
+                                       th:href="@{/facility(page= ${facilityList.number -1},searchValue=${searchValue})}"
                                        aria-label="Previous">
                                         <span aria-hidden="true">&#9754;</span>
                                     </a>
@@ -115,8 +115,8 @@
                                     </div>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link text-primary"
-                                       th:href="@{/facility(page=${facilityList.totalPages - 1})}"
+                                    <a class="page-link text-primary" th:if="${facilityList.hasNext()}"
+                                       th:href="@{/facility(page= ${facilityList.number + 1},searchValue=${searchValue})}"
                                        aria-label="Previous">
                                         <span aria-hidden="true">&#9755;</span>
                                     </a>

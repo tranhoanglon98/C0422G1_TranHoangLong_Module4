@@ -15,14 +15,9 @@ public class CustomerService implements ICustomerService {
 
 
     @Override
-    public Page<Customer> findByNameOrId(String searchValue, Pageable pageable) {
-        Integer id;
-        try {
-             id = Integer.parseInt(searchValue);
-        }catch (Exception e){
-            id = 0;
-        }
-        return this.customerRepository.findByNameContainingOrId(searchValue, id, pageable);
+    public Page<Customer> findByName(String searchValue, Pageable pageable) {
+
+        return this.customerRepository.findByNameContaining(searchValue, pageable);
     }
 
     @Override

@@ -65,18 +65,19 @@
         console.log(searchValue)
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/?size=" + size + "&searchValue=" + searchValue,
-            success: function (blogPage) {
-                let blogList = blogPage.content;
+            url: "http://localhost:8080/contract",
+            success: function (contractPage) {
+                let contractList = contractPage.content;
                 let htmlStr = '';
-                for (let i = 0; i < blogList.length; i++) {
+                for (let i = 0; i < contractList.length; i++) {
                     htmlStr += `<tr>
                                     <td>${i + 1}</td>
-                                    <td>${blogList[i].id}</td>
-                                    <td>${blogList[i].title}</td>
-                                    <td>${blogList[i].author}</td>
-                                    <td>${blogList[i].category.category}</td>
-                                    <td>${blogList[i].summary}</td>
+                                    <td>${contractList[i].getFacilityName()}</td>
+                                    <td>${contractList[i].getCustomerName()}</td>
+                                    <td>${contractList[i].getStartDay()}</td>
+                                    <td>${contractList[i].getEndDay()}</td>
+                                    <td>${contractList[i].getDeposit()}</td>
+                                    <td>${contractList[i].getTotal()}</td>
                                 </tr>`
                 }
                 $("#tableBody").html(htmlStr)

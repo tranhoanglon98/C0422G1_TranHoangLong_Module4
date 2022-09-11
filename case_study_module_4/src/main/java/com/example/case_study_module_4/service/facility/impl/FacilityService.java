@@ -15,14 +15,9 @@ public class FacilityService implements IFacilityService {
     private IFacilityRepository facilityRepository;
 
     @Override
-    public Page<Facility> findByNameOrId(String searchValue,Pageable pageable) {
-        Integer id;
-        try {
-            id = Integer.parseInt(searchValue);
-        }catch (Exception e){
-            id = 0;
-        }
-        return this.facilityRepository.findByNameContainingOrId(searchValue,id,pageable);
+    public Page<Facility> findByName(String searchValue, Pageable pageable) {
+
+        return this.facilityRepository.findByNameContaining(searchValue, pageable);
     }
 
     @Override

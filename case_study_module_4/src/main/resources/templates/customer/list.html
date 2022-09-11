@@ -37,7 +37,7 @@
                         <form action="/customer" method="get">
                             <div class="row d-flex justify-content-end">
                                 <div class="col-lg-3">
-                                    <input type="text" placeholder="Name or ID" name="searchValue"
+                                    <input type="text" placeholder="customer name" name="searchValue"
                                            class="form-control">
                                 </div>
                                 <div class="col-lg-2">
@@ -101,8 +101,8 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link text-dark"
-                               th:href="@{/customer(page=0,searchValue=${searchValue})}"
+                            <a class="page-link text-dark" th:if="${customerList.hasPrevious()}"
+                               th:href="@{/customer(page= ${customerList.number -1},searchValue=${searchValue})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9754;</span>
                             </a>
@@ -120,8 +120,8 @@
                             </div>
                         </li>
                         <li class="page-item">
-                            <a class="page-link text-dark"
-                               th:href="@{/customer(page=${customerList.totalPages - 1},searchValue=${searchValue})}"
+                            <a class="page-link text-dark" th:if="${customerList.hasNext()}"
+                               th:href="@{/customer(page=${customerList.number + 1},searchValue=${searchValue})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9755;</span>
                             </a>

@@ -22,17 +22,31 @@
                                 <input type="hidden" th:field="*{facilityType}" id="type">
                                 <div class="form-check" th:each="type:${facilityTypeList}"
                                      th:attr="onclick=|showInput('${type.id}')|">
-                                    <input type="hidden" th:value="${type.id}" id="onload">
-                                    <div th:if="${facilityTypeList.indexOf(type) == 0}">
-                                        <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
-                                               th:id="${type.name}"
-                                               checked>
+                                    <div th:unless="${facilityDto.facilityType == null}">
+                                        <div th:if="${type.id == facilityDto.facilityType.id}">
+                                            <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
+                                                   th:id="${type.name}" checked>
+                                            <input type="hidden" th:value="${type.id}" id="onload">
+                                        </div>
+                                        <div th:unless="${type.id == facilityDto.facilityType.id}">
+                                            <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
+                                                   th:id="${type.name}">
+                                        </div>
+                                        <label class="form-check-label" th:for="${type.name}" th:text="${type.name}"></label>
                                     </div>
-                                    <div th:unless="${facilityTypeList.indexOf(type) == 0}">
-                                        <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
-                                               th:id="${type.name}">
+                                    <div th:if="${facilityDto.facilityType == null}">
+                                        <div th:if="${type.id == facilityTypeList.get(0).id}">
+                                            <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
+                                                   th:id="${type.name}"
+                                                   checked>
+                                            <input type="hidden" th:value="${type.id}" id="onload">
+                                        </div>
+                                        <div th:unless="${type.id == facilityTypeList.get(0).id}">
+                                            <input class="form-check-input" type="radio" name="type" th:value="${type.id}"
+                                                   th:id="${type.name}">
+                                        </div>
+                                        <label class="form-check-label" th:for="${type.name}" th:text="${type.name}"></label>
                                     </div>
-                                    <label class="form-check-label" th:for="${type.name}" th:text="${type.name}"></label>
                                 </div>
                             </div>
                             <div class="col-lg-10 text-dark">
@@ -182,8 +196,11 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script>
-    let code = document.getElementById("onload").value;
-    showInput(code);
+    if (document.getElementById("type").value !== ""){
+        showInput(document.getElementById("type").value)
+    }else {
+        showInput("1");
+    }
 
     function showInput(value) {
         document.getElementById("type").value = value;
