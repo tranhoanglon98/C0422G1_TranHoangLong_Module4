@@ -5,6 +5,7 @@ import com.example.case_study_module_4.model.facility.Facility;
 import com.example.case_study_module_4.service.facility.IFacilityService;
 import com.example.case_study_module_4.service.facility.IFacilityTypeService;
 import com.example.case_study_module_4.service.facility.IRentTypeService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,9 @@ public class  FacilityController {
     IRentTypeService rentTypeService;
 
     @GetMapping("delete")
-    public String delete(@RequestParam Integer id){
+    public String delete(@RequestParam Integer id, RedirectAttributes redirectAttributes){
         this.facilityService.delete(id);
+        redirectAttributes.addFlashAttribute("mess","Delete successfully");
         return "redirect:/facility";
     }
 
@@ -62,7 +64,7 @@ public class  FacilityController {
         Facility facility = new Facility();
         BeanUtils.copyProperties(facilityDto,facility);
         this.facilityService.save(facility);
-        if (facility.getId()==null){
+        if (facilityDto.getId() == null){
             redirectAttributes.addFlashAttribute("mess","Add successfully!");
             return "redirect:/facility/add";
         }

@@ -52,7 +52,7 @@ public class FacilityDto implements Validator {
         FacilityDto facilityDto = (FacilityDto) target;
 
         if (!(facilityDto.name == null || facilityDto.name.trim().equals(""))) {
-            if (!(facilityDto.name.matches("^([1-9A-Z][\\w]*)+( [1-9A-Z][\\w]*)*$"))) {
+            if (!(facilityDto.name.matches("^([0-9A-Z][\\w]*)+( [0-9A-Z][\\w]*)*$"))) {
                 errors.rejectValue("name", "name.err", "please input right format(ex: Villa123)");
             }
         }
@@ -62,10 +62,10 @@ public class FacilityDto implements Validator {
             try {
                 int area = Integer.parseInt(facilityDto.area);
                 if (area < 0) {
-                    errors.rejectValue("name", "area.err", "Area cannot be negative");
+                    errors.rejectValue("area", "area.err", "Area cannot be negative");
                 }
             } catch (Exception e) {
-                errors.rejectValue("name", "area.err", "please input right format(Integer number)");
+                errors.rejectValue("area", "area.err", "please input right format(Integer number)");
             }
         }
 

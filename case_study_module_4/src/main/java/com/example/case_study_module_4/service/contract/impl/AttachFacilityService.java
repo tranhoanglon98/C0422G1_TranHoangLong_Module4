@@ -18,4 +18,9 @@ public class AttachFacilityService implements IAttachFacilityService {
     public List<AttachFacility> findAll() {
         return this.attachFacilityRepository.findAll();
     }
+
+    @Override
+    public List<AttachFacility> findByContractId(Integer id) {
+        return this.attachFacilityRepository.findAttachFacilityByContractId(id);
+    }
 }

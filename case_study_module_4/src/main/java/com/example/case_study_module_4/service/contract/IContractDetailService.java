@@ -7,4 +7,6 @@ import java.util.List;
 public interface IContractDetailService {
 
     List<ContractDetail> findAll();
+
+    List<ContractDetail> findByContractId(Integer id);
 }

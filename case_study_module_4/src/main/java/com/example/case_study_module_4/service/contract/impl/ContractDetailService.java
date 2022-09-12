@@ -18,4 +18,9 @@ public class ContractDetailService implements IContractDetailService {
     public List<ContractDetail> findAll() {
         return this.contractDetailRepository.findAll();
     }
+
+    @Override
+    public List<ContractDetail> findByContractId(Integer id) {
+        return this.contractDetailRepository.findContractDetailByContractId(id);
+    }
 }

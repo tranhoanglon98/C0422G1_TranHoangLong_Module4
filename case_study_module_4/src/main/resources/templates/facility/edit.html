@@ -171,14 +171,15 @@
      tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-light">
+                <h5>Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                     Close
                 </button>
             </div>
@@ -214,12 +215,11 @@
                 document.getElementById("freeInput").value = null;
                 break;
             case "3":
-                document.getElementById("standard").style.display = "none";
+                document.getElementById("standard").style.display = "block";
                 document.getElementById("floors").style.display = "none";
                 document.getElementById("convenience").style.display = "none";
                 document.getElementById("free").style.display = "block";
                 document.getElementById("poolArea").style.display = "none";
-                document.getElementById("standardInput").value = null;
                 document.getElementById("floorsInput").value = null;
                 document.getElementById("convenienceInput").value = null;
                 document.getElementById("poolAreaInput").value = null;

@@ -73,18 +73,17 @@ public class FuramaController {
         return "employee/list";
     }
 
-//    @GetMapping("/contract")
-//    public String goContractPage(Model model,@PageableDefault(size =  5) Pageable pageable){
-//        Page<ContractDto> contractDtos = this.contractService.findAll(pageable);
-//        model.addAttribute("contractPage",contractDtos);
-//        if (contractDtos.getTotalPages() > 0) {
-//            int[] pageNumber = new int[contractDtos.getTotalPages()];
-//            model.addAttribute("pageNumber", pageNumber);
-//        }
-//        if (contractDtos.isEmpty()) {
-//            model.addAttribute("result", "Not Found");
-//        }
-//        return "contract/list";
-//    }
-
+    @GetMapping("/contract")
+    public String goContractPage(Model model,@PageableDefault(size =  5) Pageable pageable){
+        Page<ContractDto> contractDtos = this.contractService.findAll(pageable);
+        model.addAttribute("contractPage",contractDtos);
+        if (contractDtos.getTotalPages() > 0) {
+            int[] pageNumber = new int[contractDtos.getTotalPages()];
+            model.addAttribute("pageNumber", pageNumber);
+        }
+        if (contractDtos.isEmpty()) {
+            model.addAttribute("result", "Not Found");
+        }
+        return "contract/list";
+    }
 }

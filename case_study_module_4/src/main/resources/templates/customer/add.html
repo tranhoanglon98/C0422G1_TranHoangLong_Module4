@@ -25,21 +25,21 @@
                                     <div class="col-lg-12"><span>Name: </span><span class="text-danger"
                                                                                     th:errors="*{name}"></span>
                                     </div>
-                                    <div class="col-lg-12"><input type="text" name="name" class="form-control"
+                                    <div class="col-lg-12"><input type="text" name="name" class="form-control shadow"
                                                                   placeholder="Customer name"
                                                                   aria-label="Customer name" th:field="*{name}"></div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Day of birth: </span><span
                                             class="text-danger" th:errors="*{dayOfBirth}"></span></div>
-                                    <div class="col-lg-12"><input type="date" name="birthday" class="form-control"
+                                    <div class="col-lg-12"><input type="date" name="birthday" class="form-control shadow"
                                                                   placeholder="Birthday"
                                                                   aria-label="Birthday" th:field="*{dayOfBirth}"></div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Gender: </span></span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{gender}" class="form-select">
+                                        <select th:field="*{gender}" class="form-select shadow">
                                             <option th:value="false">Female</option>
                                             <option th:value="true">Male</option>
                                         </select>
@@ -50,14 +50,14 @@
                                                                                        th:errors="*{idCard}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="number" name="idCard" class="form-control"
+                                        <input type="number" name="idCard" class="form-control shadow"
                                                placeholder="ID card" aria-label="ID card" th:field="*{idCard}">
                                     </div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
                                         <button type="submit" name="action" value="add"
-                                                class="w-100 btn btn-dark text-warning">Add
+                                                class="w-100 btn btn-dark text-warning shadow">Add
                                         </button>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                                                                                      th:errors="*{phoneNumber}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="number" name="phone" class="form-control" placeholder="Phone"
+                                        <input type="number" name="phone" class="form-control shadow" placeholder="Phone"
                                                aria-label="Phone" th:field="*{phoneNumber}">
                                     </div>
                                 </div>
@@ -77,14 +77,14 @@
                                                                                      th:errors="*{email}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="email" name="email" class="form-control"
+                                        <input type="email" name="email" class="form-control shadow"
                                                placeholder="Email" th:field="*{email}" aria-label="Email">
                                     </div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Customer type</span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{customerType}" class="form-select">
+                                        <select th:field="*{customerType}" class="form-select shadow">
                                             <option th:each="type:${customerTypeList}"
                                                     th:value="${type.id}" th:text="${type.name}"></option>
                                         </select>
@@ -94,7 +94,7 @@
                                     <div class="col-lg-12"><span>Address: </span><span th:errors="*{address}"
                                                                                        class="text-danger"></span></div>
                                     <div class="col-lg-12">
-                                        <input type="text" name="address" class="form-control"
+                                        <input type="text" name="address" class="form-control shadow"
                                                placeholder="Address"
                                                aria-label="Address" th:field="*{address}">
                                     </div>
@@ -113,18 +113,20 @@
         <nav th:replace="~{nav::nav_bar}"></nav>
     </div>
 </div>
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+<div th:if="${mess != null}" class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
      tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id="modalHeader">
+                <h5>ADD</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
+                <span th:text="${mess}"></span>
+                <input type="hidden" th:value="${mess}" id="modalInfo">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button class="btn btn-primary" id="closeButton" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                     Close
                 </button>
             </div>
@@ -136,7 +138,11 @@
 <script>
     $(document).ready(function (){
         if ($("#modalInfo").val() != null){
-            console.log($("#modalInfo").val())
+            if ($("#modalInfo").val() === "Add failed"){
+                $("#modalHeader, #closeButton").css({"background" : "#dc3545","color" : "#f9fafb"})
+            }else {
+                $("#modalHeader, #closeButton").css({"background" : "#198754","color" : "#f9fafb"})
+            }
             $("#exampleModalToggle").modal('show')
         }
     })

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script src="static/js/jquery-3.6.1.min.js"></script>
+<script>
+    test()
+    function test() {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/contract",
+            success: function (phoneList) {
+               alert("ok")
+            },
+            error: function (resultError) {
+                alert("Not ok")
+            }
+        })
+    }
+</script>
+</body>
+</html>

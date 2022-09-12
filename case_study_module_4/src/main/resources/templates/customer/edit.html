@@ -18,28 +18,28 @@
                     <h2>Edit Customer</h2>
                 </div>
                 <div class="col-lg-12 text-dark">
-                    <form action="/customer/save" th:object="${customerDto}" method="post">
+                    <form action="/customer/save" id="inputForm" th:object="${customerDto}" method="post">
                         <input type="hidden" th:field="*{id}">
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-lg-6 ps-5 pe-5">
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Name: </span><span class="text-danger" th:errors="*{name}"></span>
                                     </div>
-                                    <div class="col-lg-12"><input type="text" name="name" class="form-control"
+                                    <div class="col-lg-12"><input type="text" name="name" class="form-control shadow"
                                                                   placeholder="Customer name"
                                                                   aria-label="Customer name" th:field="*{name}"></div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Day of birth: </span><span
                                             class="text-danger" th:errors="*{dayOfBirth}"></span></div>
-                                    <div class="col-lg-12"><input type="date" name="birthday" class="form-control"
+                                    <div class="col-lg-12"><input type="date" name="birthday" class="form-control shadow"
                                                                   placeholder="Birthday"
                                                                   aria-label="Birthday" th:field="*{dayOfBirth}"></div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Gender: </span></span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{gender}" class="form-control">
+                                        <select th:field="*{gender}" class="form-control shadow">
                                             <option th:value="false">Female</option>
                                             <option th:value="true">Male</option>
                                         </select>
@@ -49,13 +49,13 @@
                                     <div class="col-lg-12"><span>ID card: </span><span class="text-danger"  th:errors="*{idCard}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="number" name="idCard" class="form-control"
+                                        <input type="number" name="idCard" class="form-control shadow"
                                                placeholder="ID card" aria-label="ID card" th:field="*{idCard}">
                                     </div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
-                                        <button type="submit" name="action" value="add" class="w-100 btn btn-dark text-warning">Save
+                                        <button type="submit" name="action" value="add" class="shadow w-100 btn btn-dark text-warning">Save
                                         </button>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                     <div class="col-lg-12"><span>Phone: </span><span class="text-danger"  th:errors="*{phoneNumber}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="number" name="phone" class="form-control" placeholder="Phone"
+                                        <input type="number" name="phone" class="form-control shadow" placeholder="Phone"
                                                aria-label="Phone" th:field="*{phoneNumber}">
                                     </div>
                                 </div>
@@ -73,14 +73,14 @@
                                     <div class="col-lg-12"><span>Email: </span><span class="text-danger"  th:errors="*{email}"></span>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="email" name="email" class="form-control"
+                                        <input type="email" name="email" class="form-control shadow"
                                                placeholder="Email" th:field="*{email}" aria-label="Email">
                                     </div>
                                 </div>
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Customer type</span></div>
                                     <div class="col-lg-12">
-                                        <select th:field="*{customerType}" class="form-control">
+                                        <select th:field="*{customerType}" class="form-control shadow">
                                             <option th:each="type:${customerTypeList}"
                                                     th:value="${type.id}" th:text="${type.name}"></option>
                                         </select>
@@ -89,7 +89,7 @@
                                 <div class="row pb-4">
                                     <div class="col-lg-12"><span>Address: </span><span th:errors="*{address}" class="text-danger"></span></div>
                                     <div class="col-lg-12">
-                                        <input type="text" name="address" class="form-control"
+                                        <input type="text" name="address" class="form-control shadow"
                                                placeholder="Address"
                                                aria-label="Address" th:field="*{address}">
                                     </div>
@@ -112,14 +112,15 @@
      tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-light">
+                <h5>Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                     Close
                 </button>
             </div>

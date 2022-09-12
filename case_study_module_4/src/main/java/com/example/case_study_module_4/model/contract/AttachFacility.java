@@ -1,6 +1,10 @@
 package com.example.case_study_module_4.model.contract;
 
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +12,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @Table(name = "dich_vu_di_kem")
 public class AttachFacility {
 
@@ -31,5 +35,6 @@ public class AttachFacility {
     private String status;
 
     @OneToMany(mappedBy = "attachFacility")
+    @JsonBackReference
     private Set<ContractDetail> contractDetails;
 }

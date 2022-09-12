@@ -1,5 +1,6 @@
 package com.example.case_study_module_4.model.facility;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,6 @@ public class FacilityType {
     private String name;
 
     @OneToMany(mappedBy = "facilityType")
+    @JsonBackReference
     private List<Facility> facilityList;
 }

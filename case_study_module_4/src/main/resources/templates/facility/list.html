@@ -32,7 +32,7 @@
                     <div class="row mt-3">
                         <div class="col-lg-3">
                             <a href="/facility/add">
-                                <button class="btn btn-primary">Add new service</button>
+                                <button class="btn btn-primary shadow">Add new service</button>
                             </a>
                         </div>
                         <div class="col-lg-9">
@@ -40,17 +40,17 @@
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-lg-3">
                                         <input type="text" placeholder="facility name" name="searchValue"
-                                               class="form-control">
+                                               class="form-control shadow">
                                     </div>
                                     <div class="col-lg-2">
                                         <button type="submit"
-                                                class="btn btn-primary text-light w-100">search
+                                                class="btn btn-primary text-light w-100 shadow">search
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <table class="table mt-3 table-hover" id="list">
+                        <table class="table mt-3 table-hover shadow" id="list">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -92,16 +92,16 @@
                             </tr>
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
+                        <nav  aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item">
+                                <li class="page-item shadow-1">
                                     <a class="page-link text-primary" th:if="${facilityList.hasPrevious()}"
                                        th:href="@{/facility(page= ${facilityList.number -1},searchValue=${searchValue})}"
                                        aria-label="Previous">
                                         <span aria-hidden="true">&#9754;</span>
                                     </a>
                                 </li>
-                                <li th:each="p,index: ${pageNumber} ">
+                                <li th:each="p,index: ${pageNumber} " class="shadow">
                                     <div id="page-item " class="page-item"
                                          th:if="${index.index == facilityList.number}">
                                         <a class="page-link bg-primary text-light"
@@ -114,7 +114,7 @@
                                            th:text="${index.index + 1}"></a>
                                     </div>
                                 </li>
-                                <li class="page-item">
+                                <li class="page-item shadow">
                                     <a class="page-link text-primary" th:if="${facilityList.hasNext()}"
                                        th:href="@{/facility(page= ${facilityList.number + 1},searchValue=${searchValue})}"
                                        aria-label="Previous">
@@ -137,7 +137,7 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-danger text-light">
                         <h5 class="modal-title" id="exampleModalLabel">Delete Facility</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -167,18 +167,20 @@
         </div>
     </form>
 </div>
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+<div class="modal fade"  th:if="${mess != null}"  id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
      tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-success text-light">
+                <h5 id="modalTitle"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
+                <span th:text="${mess}"></span>
+                <input type="hidden" th:value="${mess}" id="modalInfo">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button class="btn btn-success" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                     Close
                 </button>
             </div>
@@ -190,7 +192,12 @@
 <script>
     $(document).ready(function (){
         if ($("#modalInfo").val() != null){
-            console.log($("#modalInfo").val())
+            if ($("#modalInfo").val() === "Edit successfully!"){
+                $("#modalTitle").text("Edit")
+            }else {
+                $("#modalTitle").text("Delete")
+            }
+
             $("#exampleModalToggle").modal('show')
         }
     })

@@ -1,5 +1,6 @@
 package com.example.case_study_module_4.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class CustomerType {
     private String name;
 
     @OneToMany(mappedBy = "customerType")
+    @JsonBackReference
     private List<Customer> customerList;
 
 }

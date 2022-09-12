@@ -1,6 +1,10 @@
 package com.example.case_study_module_4.model.contract;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +14,9 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "hop_dong_chi_tiet")
 public class ContractDetail {
 

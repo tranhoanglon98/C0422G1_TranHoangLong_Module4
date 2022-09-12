@@ -17,6 +17,10 @@
             color: #FFD700;
             background: #000000;
         }
+
+        #attachFacility .modal-footer{
+            border-top: none;
+        }
     </style>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
 </head>
@@ -28,7 +32,10 @@
                 <div class="row text-center text-light">
                     <h2>Contract List</h2>
                 </div>
-                <table class="table mt-5 table-hover text-light fst-normal">
+                <div class=" ps-0 pe-0">
+                    <button class="btn btn-dark shadow">Contract invalid</button>
+                </div>
+                <table class="table mt-2 table-hover text-light fst-normal shadow">
                     <thead>
                     <tr class="text-center">
                         <th>#</th>
@@ -45,35 +52,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link text-dark" th:if="${contractPage.hasPrevious()}"
-                               href="" aria-label="Previous">
-                                <span aria-hidden="true"
-                                      th:attr="onclick=|showContractTable(${contractPage.number - 1})|">
-                                    &#9754;</span>
-                            </a>
-                        </li>
-                        <li th:each="p,index: ${pageNumber} ">
-                            <div id="page-item " class="page-item"
-                                 th:if="${index.index == contractPage.number}">
-                                <a class="page-link bg-dark text-light"
-                                   th:href="@{/contract(page=${index.index})}"
-                                   th:text="${index.index + 1}"></a>
-                            </div>
-                            <div class="page-item" th:unless="${index.index == contractPage.number}">
-                                <a class="page-link text-dark"
-                                   th:href="@{/contract(page=${index.index})}"
-                                   th:text="${index.index + 1}"></a>
-                            </div>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link text-dark" th:if="${contractPage.hasNext()}"
-                               aria-label="Previous">
-                                <span aria-hidden="true"
-                                      th:attr="onclick=|showContractTable(${contractPage.number + 1})|">&#9755;</span>
-                            </a>
-                        </li>
+                    <ul class="pagination"  id="pagination">
                     </ul>
                 </nav>
             </div>
@@ -129,20 +108,29 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="accompaniedService" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Modal title</h5>
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title" id="exampleModalLabel2">Attach facility list</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        ...
+                    <div class="modal-body" >
+                        <table class="table">
+                            <thead>
+                            <th>#</th>
+                            <th>Attach facility</th>
+                            <th>Cost</th>
+                            <th>Unit</th>
+                            <th>Quantity</th>
+                            </thead>
+                            <tbody id="attachFacilityModalBody">
+                            </tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -156,26 +144,121 @@
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+
 <script>
-    $(document).ready(function (){
-        showContractTable()
-    })
-    function showContractTable() {
+
+    showList(0)
+
+    function showList(page) {
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/contract?page=" + page,
+            success: function (contractPage) {
+                let contractList = contractPage.content;
+                let tableBody = "";
+                let paginationButton = "";
+                for (let i =0; i< contractList.length;i++){
+                    tableBody += `
+                        <tr>
+                        <td>${contractPage.number*contractPage.size + i +1}</td>
+                        <td>${contractList[i].facilityName}</td>
+                        <td>${contractList[i].customerName}</td>
+                        <td>${contractList[i].startDay}</td>
+                        <td>${contractList[i].endDay}</td>
+                        <td>${contractList[i].deposit}</td>
+                        <td>${contractList[i].total}</td>
+                        <td>
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                +
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" onclick="showAttachFacilityListModal(${contractList[i].id})" class="btn btn-dark w-100" data-bs-toggle="modal"
+                                    data-bs-target="#attachFacility">
+                                Attach facility list
+                            </button>
+                        </td>
+                    </tr>`
+                }
+                $("#tableBody").html(tableBody)
+
+                if (page > 0){
+                    paginationButton += `
+                     <li class="page-item shadow">
+                            <a class="page-link text-dark"
+                               href="#" aria-label="Previous">
+                                <span aria-hidden="true"
+                                onclick="showList(${page -1})">&#9754;</span></a>
+                        </li>`
+                }
+                for (let i =0;i<contractPage.totalPages;i++){
+                    if (i == page){
+                        paginationButton += `
+                        <li class="page-item shadow">
+                            <a class="page-link bg-dark text-light"
+                                 href="#" onclick="showList(${i})">${i + 1}</a>
+                            </li>`
+                    }else {
+                        paginationButton += `
+                         <li class="page-item shadow">
+                                <a class="page-link text-dark"
+                                   href="#" onclick="showList(${i})" >${i + 1}</a>
+                            </li>`
+                    }
+                }
+                if (page < contractPage.totalPages - 1){
+                    paginationButton += `
+                     <li class="page-item shadow">
+                            <a class="page-link text-dark"
+                               href="#" aria-label="Previous">
+                                <span aria-hidden="true"
+                                      onclick="showList(${page + 1})">
+                                    &#9755;</span>
+                            </a>
+                        </li>`
+                }
+                $("#pagination").html(paginationButton)
+            },
+            error: function (resultError) {
+                alert("error")
+            }
+        })
+    }
+
+    function showAttachFacilityListModal(id) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             type: "GET",
-            url: "http://localhost:8080/update",
-            success: function (contractPage) {
-                alert("update successfully")
+            url: "http://localhost:8080/contract/contractDetail?id=" + id,
+            success: function (attachFacilityList) {
+                let modalBody = "";
+                $("#attachFacilityModalBody").html(modalBody)
+                    for (let i =0; i< attachFacilityList.length;i++){
+                        modalBody  += `
+                    <tr>
+                    <td>${i+1}</td>
+                    <td>${attachFacilityList[i].attachFacility.name}</td>
+                    <td>${attachFacilityList[i].attachFacility.cost}</td>
+                    <td>${attachFacilityList[i].attachFacility.unit}</td>
+                    <td>${attachFacilityList[i].quantity}</td></tr>`
+                    }
+
+                $("#attachFacilityModalBody").html(modalBody)
             },
             error: function (resultError) {
-                alert("update failed");
             }
         })
-        }
+    }
 </script>
+
 </body>
 </html>

@@ -3,6 +3,9 @@ package com.example.case_study_module_4.model.contract;
 import com.example.case_study_module_4.model.customer.Customer;
 import com.example.case_study_module_4.model.employee.Employee;
 import com.example.case_study_module_4.model.facility.Facility;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,5 +46,6 @@ public class Contract {
     private Facility facility;
 
     @OneToMany(mappedBy = "contract")
+    @JsonBackReference
     private Set<ContractDetail> contractDetails;
 }

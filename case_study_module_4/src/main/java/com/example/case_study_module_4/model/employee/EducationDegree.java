@@ -1,5 +1,6 @@
 package com.example.case_study_module_4.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,6 @@ public class EducationDegree {
     private String degree;
 
     @OneToMany(mappedBy = "educationDegree")
+    @JsonBackReference
     private Set<Employee> employees;
 }

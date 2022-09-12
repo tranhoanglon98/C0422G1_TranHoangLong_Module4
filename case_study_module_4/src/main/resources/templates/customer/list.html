@@ -23,14 +23,14 @@
 <div class="container-fluid position-relative">
     <div class="row">
         <div class="col-lg-10 d-flex justify-content-start  position-absolute ps-5 pe-5" style="top: 10%">
-            <div class="w-100 ps-4 pe-4 text-dark">
+            <div class="w-100 ps-5 pe-5 text-dark">
                 <div class="row text-center">
                     <h2>Customer List</h2>
                 </div>
                 <div class="row mt-4">
                     <div class="col-lg-3">
                         <a href="/customer/add">
-                            <button class="btn btn-dark text-warning">Add new Customer</button>
+                            <button class="btn btn-dark text-warning shadow">Add new Customer</button>
                         </a>
                     </div>
                     <div class="col-lg-9">
@@ -38,18 +38,18 @@
                             <div class="row d-flex justify-content-end">
                                 <div class="col-lg-3">
                                     <input type="text" placeholder="customer name" name="searchValue"
-                                           class="form-control">
+                                           class="form-control shadow">
                                 </div>
                                 <div class="col-lg-2">
                                     <button type="submit"
-                                            class="btn btn-dark text-warning w-100">search
+                                            class="btn btn-dark text-warning w-100 shadow">search
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <table class="table table-hover text-dark table-responsive w-100 mt-3" id="list">
+                <table class="table table-hover text-dark table-responsive w-100 mt-3 shadow" id="list">
                     <thead>
                     <tr class="text-center">
                         <th>#</th>
@@ -100,14 +100,14 @@
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item">
+                        <li class="page-item shadow">
                             <a class="page-link text-dark" th:if="${customerList.hasPrevious()}"
                                th:href="@{/customer(page= ${customerList.number -1},searchValue=${searchValue})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9754;</span>
                             </a>
                         </li>
-                        <li th:each="p,index: ${pageNumber} ">
+                        <li th:each="p,index: ${pageNumber}" class="shadow">
                             <div id="page-item " class="page-item" th:if="${index.index == customerList.number}">
                                 <a class="page-link bg-dark text-warning"
                                    th:href="@{/customer(page=${index.index},searchValue=${searchValue})}"
@@ -119,7 +119,7 @@
                                    th:text="${index.index + 1}"></a>
                             </div>
                         </li>
-                        <li class="page-item">
+                        <li class="page-item shadow">
                             <a class="page-link text-dark" th:if="${customerList.hasNext()}"
                                th:href="@{/customer(page=${customerList.number + 1},searchValue=${searchValue})}"
                                aria-label="Previous">
@@ -142,12 +142,12 @@
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-danger text-light">
                     <h5 class="modal-title" id="exampleModalLabel2">Delete Customer</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mt-2">
+                    <div class="row mt-2" hidden>
                         <div class="col-lg-4">Customer code:</div>
                         <div class="col-lg-8">
                             <input type="text" readonly name="customerCode" id="code" class="form-control">
@@ -183,18 +183,20 @@
         </div>
     </div>
 </form>
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+<div  th:if="${mess != null}" class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
      tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-light bg-success">
+                <h5 id="modalTitle"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span th:if="${mess != null}" th:text="${mess}" id="modalInfo"></span>
+                <span th:text="${mess}"></span>
+                <input type="hidden" th:value="${mess}"  id="modalInfo">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button class="btn btn-success" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
                     Close
                 </button>
             </div>
@@ -213,8 +215,12 @@
 
     $(document).ready(function (){
         if ($("#modalInfo").val() != null){
-            console.log($("#modalInfo").val())
             $("#exampleModalToggle").modal('show')
+            if ($("#modalInfo").val() === "Edit successfully!"){
+                $("#modalTitle").text("edit")
+            }else {
+                $("#modalTitle").text("Delete")
+            }
         }
     })
 </script>
