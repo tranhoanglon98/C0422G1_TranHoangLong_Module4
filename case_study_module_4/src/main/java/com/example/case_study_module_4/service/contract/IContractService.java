@@ -8,4 +8,7 @@ public interface IContractService {
 
     Page<ContractDto> findAll(Pageable pageable);
 
+    Page<ContractDto> findInvalidContract(String now,Pageable pageable);
+
+
 }

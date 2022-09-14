@@ -18,7 +18,7 @@
             background: #000000;
         }
 
-        #attachFacility .modal-footer{
+        #attachFacility .modal-footer {
             border-top: none;
         }
     </style>
@@ -33,7 +33,9 @@
                     <h2>Contract List</h2>
                 </div>
                 <div class=" ps-0 pe-0">
-                    <button class="btn btn-dark shadow">Contract invalid</button>
+                    <a href="/customer?use=true">
+                        <button class="btn btn-dark shadow">Customers using service</button>
+                    </a>
                 </div>
                 <table class="table mt-2 table-hover text-light fst-normal shadow">
                     <thead>
@@ -52,7 +54,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination"  id="pagination">
+                    <ul class="pagination" id="pagination">
                     </ul>
                 </nav>
             </div>
@@ -116,7 +118,7 @@
                         <h5 class="modal-title" id="exampleModalLabel2">Attach facility list</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body">
                         <table class="table">
                             <thead>
                             <th>#</th>
@@ -141,31 +143,64 @@
         <nav th:replace="nav::nav_bar"></nav>
     </div>
 </div>
+<div>
+    <div class="modal fade" id="addContractDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addContractDetailModalLabel">Add attach facility</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table-hover table">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Choose</th>
+                            <th>Name</th>
+                            <th>Cost</th>
+                            <th>Unit</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody id="modalContractDetailBody">
 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="add()" data-bs-dismiss="modal" class="btn btn-primary">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-
 <script>
 
-    showList(0)
+    let currentPage = 0;
+    showList(currentPage)
 
     function showList(page) {
-
+        currentPage = page
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            url: "http://localhost:8080/contract?page=" + page,
+            url: "http://localhost:8080/contract/addContractDetail?page=" + page,
             success: function (contractPage) {
                 let contractList = contractPage.content;
                 let tableBody = "";
                 let paginationButton = "";
-                for (let i =0; i< contractList.length;i++){
+                for (let i = 0; i < contractList.length; i++) {
                     tableBody += `
                         <tr>
-                        <td>${contractPage.number*contractPage.size + i +1}</td>
+                        <td>${contractPage.number * contractPage.size + i + 1}</td>
                         <td>${contractList[i].facilityName}</td>
                         <td>${contractList[i].customerName}</td>
                         <td>${contractList[i].startDay}</td>
@@ -173,10 +208,8 @@
                         <td>${contractList[i].deposit}</td>
                         <td>${contractList[i].total}</td>
                         <td>
-                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                +
-                            </button>
+                            <button type="button" onclick="showAddContractDetail(${contractList[i].id})" class="btn btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#addContractDetailModal">+</button>
                         </td>
                         <td>
                             <button type="button" onclick="showAttachFacilityListModal(${contractList[i].id})" class="btn btn-dark w-100" data-bs-toggle="modal"
@@ -188,23 +221,23 @@
                 }
                 $("#tableBody").html(tableBody)
 
-                if (page > 0){
+                if (page > 0) {
                     paginationButton += `
                      <li class="page-item shadow">
                             <a class="page-link text-dark"
                                href="#" aria-label="Previous">
                                 <span aria-hidden="true"
-                                onclick="showList(${page -1})">&#9754;</span></a>
+                                onclick="showList(${page - 1})">&#9754;</span></a>
                         </li>`
                 }
-                for (let i =0;i<contractPage.totalPages;i++){
-                    if (i == page){
+                for (let i = 0; i < contractPage.totalPages; i++) {
+                    if (i == page) {
                         paginationButton += `
                         <li class="page-item shadow">
                             <a class="page-link bg-dark text-light"
                                  href="#" onclick="showList(${i})">${i + 1}</a>
                             </li>`
-                    }else {
+                    } else {
                         paginationButton += `
                          <li class="page-item shadow">
                                 <a class="page-link text-dark"
@@ -212,7 +245,7 @@
                             </li>`
                     }
                 }
-                if (page < contractPage.totalPages - 1){
+                if (page < contractPage.totalPages - 1) {
                     paginationButton += `
                      <li class="page-item shadow">
                             <a class="page-link text-dark"
@@ -242,19 +275,123 @@
             success: function (attachFacilityList) {
                 let modalBody = "";
                 $("#attachFacilityModalBody").html(modalBody)
-                    for (let i =0; i< attachFacilityList.length;i++){
-                        modalBody  += `
+                for (let i = 0; i < attachFacilityList.length; i++) {
+                    modalBody += `
                     <tr>
-                    <td>${i+1}</td>
+                    <td>${i + 1}</td>
                     <td>${attachFacilityList[i].attachFacility.name}</td>
                     <td>${attachFacilityList[i].attachFacility.cost}</td>
                     <td>${attachFacilityList[i].attachFacility.unit}</td>
                     <td>${attachFacilityList[i].quantity}</td></tr>`
-                    }
+                }
 
                 $("#attachFacilityModalBody").html(modalBody)
             },
             error: function (resultError) {
+            }
+        })
+    }
+
+    function showAddContractDetail(contractId) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/contract/attachFacility?id=" + contractId,
+            success: function (attachFacilityList) {
+                let modalContractDetailBody = "";
+                for (let i = 0; i < attachFacilityList.length; i++) {
+                    if (attachFacilityList[i].contractDetailId == null) {
+                        modalContractDetailBody += `<tr>
+                            <td>
+                                <input value="${attachFacilityList[i].attachFacilityId}" type="checkbox">
+                                <input type="hidden"  class="${attachFacilityList[i].attachFacilityId}" value="${contractId}">
+                            </td>`
+                    } else {
+                        modalContractDetailBody += `
+                        <tr>
+                            <td>
+                                <input value="${attachFacilityList[i].attachFacilityId}" checked type="checkbox">
+                                <input type="hidden"  class="${attachFacilityList[i].attachFacilityId}" value="${contractId}">
+                            </td>`
+                    }
+                    modalContractDetailBody += `
+                            <input type="hidden"  class="${attachFacilityList[i].attachFacilityId}" value="${attachFacilityList[i].attachFacilityId}">
+                            <input type="hidden" class="${attachFacilityList[i].attachFacilityId}" value="${attachFacilityList[i].contractDetailId}">
+                            <td>${attachFacilityList[i].attachFacilityName}</td>
+                            <td>${attachFacilityList[i].cost}</td>
+                            <td>${attachFacilityList[i].unit}</td>
+                            <td>${attachFacilityList[i].status}</td>`
+                    if (attachFacilityList[i].contractDetailId == null) {
+                        modalContractDetailBody += `
+                    <td><input type="number" class="form-control ${attachFacilityList[i].attachFacilityId}"></td></tr>`
+                    } else {
+                        modalContractDetailBody += `
+                    <td><input type="number" value="${attachFacilityList[i].quantity}" class="form-control ${attachFacilityList[i].attachFacilityId}"></td></tr>`
+                    }
+                }
+                $("#modalContractDetailBody").html(modalContractDetailBody)
+            },
+            error: function (resultError) {
+            }
+        })
+    }
+
+    function add() {
+        let contractDetailArr = [];
+        let checkBoxList = [];
+        $("#modalContractDetailBody input:checked").each(function () {
+            checkBoxList.push(this.value)
+        })
+
+        for (let i = 0; i < checkBoxList.length; i++) {
+            let test = $('.' + checkBoxList[i]).map(function () {
+                return this.value
+            }).get()
+            let contractId = test[0];
+            let attachFacilityId = test[1];
+            let contractDetailId = test[2];
+            let quantity = test[3]
+            if (test[2] === 'null') {
+                contractDetailArr.push({
+                    id: null,
+                    quantity: quantity,
+                    contract: {
+                        id: contractId
+                    },
+                    attachFacility: {
+                        id: attachFacilityId
+                    }
+                })
+            }else {
+                contractDetailArr.push({
+                    id: contractDetailId,
+                    quantity: quantity,
+                    contract: {
+                        id: contractId
+                    },
+                    attachFacility: {
+                        id: attachFacilityId
+                    }
+                })
+            }
+        }
+        console.log(contractDetailArr)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/contract",
+            data: JSON.stringify(contractDetailArr),
+            success: function (success) {
+                showList(currentPage)
+            },
+            error: function (fail) {
+                alert("Not ok")
             }
         })
     }

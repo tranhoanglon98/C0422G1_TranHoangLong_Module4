@@ -20,7 +20,7 @@ import java.util.Set;
 public class Contract {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ma_hop_dong")
     private Integer id;
 

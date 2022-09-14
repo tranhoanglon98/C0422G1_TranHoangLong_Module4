@@ -19,4 +19,9 @@ public class ContractService implements IContractService {
     public Page<ContractDto> findAll(Pageable pageable) {
         return this.contractRepository.findAllContractWithTotal(pageable);
     }
+
+    @Override
+    public Page<ContractDto> findInvalidContract(String now, Pageable pageable) {
+        return this.contractRepository.findInvalidContract(now,pageable);
+    }
 }

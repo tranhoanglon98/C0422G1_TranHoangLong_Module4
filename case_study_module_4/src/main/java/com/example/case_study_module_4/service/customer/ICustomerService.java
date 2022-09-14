@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 public interface ICustomerService {
 
     Page<Customer> findByName(String searchValue, Pageable pageable);
+    Page<Customer> getUsingCustomer(String now,String searchValue, Pageable pageable);
 
     void save(Customer customer);
 
     void delete(Integer id);
 
     Customer findById(Integer id);
+
 }

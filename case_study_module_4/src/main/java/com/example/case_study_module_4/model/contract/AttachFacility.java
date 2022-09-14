@@ -18,7 +18,7 @@ import java.util.Set;
 public class AttachFacility {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ma_dich_vu_di_kem")
     private Integer id;
 

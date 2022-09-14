@@ -1,5 +1,6 @@
 package com.example.case_study_module_4.service.contract.impl;
 
+import com.example.case_study_module_4.dto.IContractDetailDto;
 import com.example.case_study_module_4.model.contract.ContractDetail;
 import com.example.case_study_module_4.repository.Contract.IContractDetailRepository;
 import com.example.case_study_module_4.service.contract.IContractDetailService;
@@ -22,5 +23,20 @@ public class ContractDetailService implements IContractDetailService {
     @Override
     public List<ContractDetail> findByContractId(Integer id) {
         return this.contractDetailRepository.findContractDetailByContractId(id);
+    }
+
+    @Override
+    public void saveAll(List<ContractDetail> contractDetailList) {
+        this.contractDetailRepository.saveAll(contractDetailList);
+    }
+
+    @Override
+    public void save(ContractDetail contractDetail) {
+        this.contractDetailRepository.save(contractDetail);
+    }
+
+    @Override
+    public List<IContractDetailDto> findAllContractDetailByContractId(Integer id) {
+        return this.contractDetailRepository.findAllContractDetailByContractId(id);
     }
 }

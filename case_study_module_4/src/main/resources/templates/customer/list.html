@@ -39,6 +39,7 @@
                                 <div class="col-lg-3">
                                     <input type="text" placeholder="customer name" name="searchValue"
                                            class="form-control shadow">
+                                    <input type="hidden" name="use" th:value="${use}">
                                 </div>
                                 <div class="col-lg-2">
                                     <button type="submit"
@@ -102,7 +103,7 @@
                     <ul class="pagination">
                         <li class="page-item shadow">
                             <a class="page-link text-dark" th:if="${customerList.hasPrevious()}"
-                               th:href="@{/customer(page= ${customerList.number -1},searchValue=${searchValue})}"
+                               th:href="@{/customer(page= ${customerList.number -1},searchValue=${searchValue},use=${use})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9754;</span>
                             </a>
@@ -110,18 +111,18 @@
                         <li th:each="p,index: ${pageNumber}" class="shadow">
                             <div id="page-item " class="page-item" th:if="${index.index == customerList.number}">
                                 <a class="page-link bg-dark text-warning"
-                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue})}"
+                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue},use=${use})}"
                                    th:text="${index.index + 1}"></a>
                             </div>
                             <div class="page-item" th:unless="${index.index == customerList.number}">
                                 <a class="page-link text-dark"
-                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue})}"
+                                   th:href="@{/customer(page=${index.index},searchValue=${searchValue},use=${use})}"
                                    th:text="${index.index + 1}"></a>
                             </div>
                         </li>
                         <li class="page-item shadow">
                             <a class="page-link text-dark" th:if="${customerList.hasNext()}"
-                               th:href="@{/customer(page=${customerList.number + 1},searchValue=${searchValue})}"
+                               th:href="@{/customer(page=${customerList.number + 1},searchValue=${searchValue},use=${use})}"
                                aria-label="Previous">
                                 <span aria-hidden="true">&#9755;</span>
                             </a>

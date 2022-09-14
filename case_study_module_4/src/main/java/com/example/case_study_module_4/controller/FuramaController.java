@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+
 @Controller
 public class FuramaController {
 
@@ -35,8 +37,17 @@ public class FuramaController {
     @GetMapping("/customer")
     public String goCustomerPage(Model model,
                                  @RequestParam(required = false, defaultValue = "") String searchValue,
-                                 @PageableDefault(size = 5) Pageable pageable) {
-        Page<Customer> customerPage = this.customerService.findByName(searchValue, pageable);
+                                 @PageableDefault(size = 5) Pageable pageable,
+                                 @RequestParam(required = false,defaultValue = "") String use) {
+        Page<Customer> customerPage;
+        if (!use.equals("")){
+            String now = String.valueOf(LocalDate.now());
+            searchValue = "%"+searchValue+"%";
+            customerPage = this.customerService.getUsingCustomer(now,searchValue, pageable);
+        }else {
+            customerPage = this.customerService.findByName(searchValue, pageable);
+        }
+        model.addAttribute("use",use);
         model.addAttribute("customerList", customerPage);
         model.addAttribute("searchValue", searchValue);
 

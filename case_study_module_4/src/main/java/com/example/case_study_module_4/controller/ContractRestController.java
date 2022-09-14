@@ -1,7 +1,7 @@
 package com.example.case_study_module_4.controller;
 
 import com.example.case_study_module_4.dto.ContractDto;
-import com.example.case_study_module_4.model.contract.AttachFacility;
+import com.example.case_study_module_4.dto.IContractDetailDto;
 import com.example.case_study_module_4.model.contract.ContractDetail;
 import com.example.case_study_module_4.service.contract.IAttachFacilityService;
 import com.example.case_study_module_4.service.contract.IContractDetailService;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,7 +30,7 @@ public class ContractRestController {
     private IAttachFacilityService attachFacilityService;
 
 
-    @PostMapping("")
+    @PostMapping("/addContractDetail")
     public ResponseEntity<Page<ContractDto>> goContractPage(@PageableDefault(size = 5) Pageable pageable) {
 
         Page<ContractDto> contractPage = this.contractService.findAll(pageable);
@@ -48,5 +47,24 @@ public class ContractRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(contractDetailList,HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Void> addContractDetail(@RequestBody List<ContractDetail> contractDetailList){
+
+        this.contractDetailService.saveAll(contractDetailList);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/attachFacility")
+    public ResponseEntity<List<IContractDetailDto>> getAttachFacilityListToAdd(@RequestParam Integer id){
+        List<IContractDetailDto> contractDetailDtoList = this.contractDetailService.findAllContractDetailByContractId(id);
+
+        if (contractDetailDtoList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else {
+            return new ResponseEntity<>(contractDetailDtoList,HttpStatus.OK);
+        }
     }
 }
