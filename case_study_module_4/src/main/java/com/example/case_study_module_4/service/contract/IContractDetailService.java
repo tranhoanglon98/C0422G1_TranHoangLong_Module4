@@ -13,7 +13,5 @@ public interface IContractDetailService {
 
     void saveAll(List<ContractDetail> contractDetailList);
 
-    void save(ContractDetail contractDetail);
-
     List<IContractDetailDto> findAllContractDetailByContractId(Integer id);
 }

@@ -23,6 +23,7 @@
         }
     </style>
     <script src="https://kit.fontawesome.com/121b5e5230.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/select2/select2.min.css">
 </head>
 <body style="font-family: Courgette,serif;background: #E0FFFF">
 <div class="container-fluid position-relative">
@@ -32,10 +33,18 @@
                 <div class="row text-center text-light">
                     <h2>Contract List</h2>
                 </div>
-                <div class=" ps-0 pe-0">
-                    <a href="/customer?use=true">
-                        <button class="btn btn-dark shadow">Customers using service</button>
-                    </a>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3 ps-0">
+                            <a href="/customer?use=true">
+                                <button class="btn btn-dark shadow w-100">Customers using service</button>
+                            </a>
+                        </div>
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-3 pe-0">
+                            <button class="btn btn-dark shadow w-100" id="showAddContractButton">Add new Contract</button>
+                        </div>
+                    </div>
                 </div>
                 <table class="table mt-2 table-hover text-light fst-normal shadow">
                     <thead>
@@ -59,84 +68,6 @@
                 </nav>
             </div>
         </div>
-
-        <div class="modal fade" id="newContract" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create new Contract</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <div class="row">
-                                <div class="col-lg-3"><span>Check-in</span></div>
-                                <div class="col-lg-9"><input name="checkIn" class="form-control" type="date"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Check-out</span></div>
-                                <div class="col-lg-9"><input name="checkOut" class="form-control" type="date"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Deposit</span></div>
-                                <div class="col-lg-9"><input name="deposit" class="form-control" type="number"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Total</span></div>
-                                <div class="col-lg-9"><input readonly name="total" class="form-control" type="number">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Customer</span></div>
-                                <div class="col-lg-9"><input name="customer" class="form-control" type="text"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Service</span></div>
-                                <div class="col-lg-9"><input name="service" class="form-control" type="text"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3"><span>Accompanied service</span></div>
-                                <div class="col-lg-9">
-                                    <button class="btn btn-primary"><span class="material-symbols-outlined">add</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">create</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger">
-                        <h5 class="modal-title" id="exampleModalLabel2">Attach facility list</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table">
-                            <thead>
-                            <th>#</th>
-                            <th>Attach facility</th>
-                            <th>Cost</th>
-                            <th>Unit</th>
-                            <th>Quantity</th>
-                            </thead>
-                            <tbody id="attachFacilityModalBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-lg-10 mt-2 d-flex justify-content-center">
             <img style="border-radius: 30px" width="97%" src="/img/red_background.jpg" alt="">
         </div>
@@ -144,6 +75,92 @@
     </div>
 </div>
 <div>
+    <div class="modal fade" id="newContract" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new Contract</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Customer</span></div>
+                            <div class="col-lg-9">
+                                <select  id="customer">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="4">3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Service</span></div>
+                            <div class="col-lg-9"><input id="service" class="form-control" type="text"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Check-in</span></div>
+                            <div class="col-lg-9"><input id="checkIn" class="form-control" type="date"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Check-out</span></div>
+                            <div class="col-lg-9"><input id="checkOut" class="form-control" type="date"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Deposit</span></div>
+                            <div class="col-lg-9"><input id="deposit" class="form-control" type="number"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Employee</span></div>
+                            <div class="col-lg-9">
+                                <input type="text" id="employee">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"><span>Attach facility</span></div>
+                            <div class="col-lg-9">
+                                <button class="btn btn-primary">+</button>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-lg-3"><span>Total</span></div>
+                            <div class="col-lg-9"><input readonly id="total" class="form-control" type="number">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="exampleModalLabel2">Attach facility list</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <th>#</th>
+                        <th>Attach facility</th>
+                        <th>Cost</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        </thead>
+                        <tbody id="attachFacilityModalBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="addContractDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -171,7 +188,22 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" onclick="add()" data-bs-dismiss="modal" class="btn btn-primary">ADD</button>
+                    <button type="button" onclick="addContractDetail()" data-bs-dismiss="modal" class="btn btn-primary">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="notificationModalLabel">Add Attach Facility</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -179,10 +211,40 @@
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/select2/select2.min.js"></script>
 <script>
 
     let currentPage = 0;
+
     showList(currentPage)
+
+    $("#showAddContractButton").click(function (){
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/contract/showAddNewContractModal",
+            success: function (infoForAddContractModal) {
+               let facilityList = infoForAddContractModal[0];
+               let customerList = infoForAddContractModal[1];
+               let employeeList = infoForAddContractModal[2];
+               let attachFacilityList = infoForAddContractModal[3];
+
+               let customerOption =``;
+               for (let i =0;i<customerList.length;i++){
+                   customerOption += `
+                   <option value="${customerList[i].id}">${customerList[i].name}</option>`
+               }
+
+               $("#customer").html(customerOption);
+            },
+            error: function (resultError) {
+            }
+        })
+        $("#newContract").modal('show')
+    })
 
     function showList(page) {
         currentPage = page
@@ -192,7 +254,7 @@
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            url: "http://localhost:8080/contract/addContractDetail?page=" + page,
+            url: "http://localhost:8080/contract?page=" + page,
             success: function (contractPage) {
                 let contractList = contractPage.content;
                 let tableBody = "";
@@ -339,7 +401,7 @@
         })
     }
 
-    function add() {
+    function addContractDetail() {
         let contractDetailArr = [];
         let checkBoxList = [];
         $("#modalContractDetailBody input:checked").each(function () {
@@ -385,10 +447,12 @@
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            url: "http://localhost:8080/contract",
+            url: "http://localhost:8080/contract/addContractDetail",
             data: JSON.stringify(contractDetailArr),
             success: function (success) {
                 showList(currentPage)
+                $("#modalBody").html(`<span>Add successfully</span>`)
+                $("#notificationModal").modal('show')
             },
             error: function (fail) {
                 alert("Not ok")
