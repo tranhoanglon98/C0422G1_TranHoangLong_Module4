@@ -51,14 +51,14 @@ public class FacilityDto implements Validator {
 
         FacilityDto facilityDto = (FacilityDto) target;
 
-        if (!(facilityDto.name == null || facilityDto.name.trim().equals(""))) {
+        if (!facilityDto.name.trim().equals("")) {
             if (!(facilityDto.name.matches("^([0-9A-Z][\\w]*)+( [0-9A-Z][\\w]*)*$"))) {
                 errors.rejectValue("name", "name.err", "please input right format(ex: Villa123)");
             }
         }
 
 
-        if (!(facilityDto.area == null || facilityDto.area.trim().equals(""))) {
+        if (!facilityDto.area.trim().equals("")) {
             try {
                 int area = Integer.parseInt(facilityDto.area);
                 if (area < 0) {
@@ -70,7 +70,7 @@ public class FacilityDto implements Validator {
         }
 
 
-        if (!(facilityDto.cost == null || facilityDto.cost.trim().equals(""))) {
+        if (! facilityDto.cost.trim().equals("")) {
             try {
                 double area = Double.parseDouble(facilityDto.cost);
                 if (area < 0) {
@@ -82,7 +82,7 @@ public class FacilityDto implements Validator {
         }
 
 
-        if (!(facilityDto.maxPeople == null || facilityDto.maxPeople.trim().equals(""))) {
+        if (!facilityDto.maxPeople.trim().equals("")) {
             try {
                 int area = Integer.parseInt(facilityDto.maxPeople);
                 if (area < 0) {
@@ -93,7 +93,7 @@ public class FacilityDto implements Validator {
             }
         }
 
-        if (!(facilityDto.poolArea == null || facilityDto.poolArea.trim().equals(""))) {
+        if (!facilityDto.poolArea.trim().equals("")) {
             try {
                 double area = Double.parseDouble(facilityDto.poolArea);
                 if (area < 0) {
@@ -107,7 +107,7 @@ public class FacilityDto implements Validator {
                 errors.rejectValue("poolArea", "poolArea.err", "must not be blank");
             }
 
-            if (!(facilityDto.floors == null || facilityDto.floors.trim().equals(""))) {
+            if (! facilityDto.floors.trim().equals("")) {
                 try {
                     int area = Integer.parseInt(facilityDto.floors);
                     if (area < 0) {
