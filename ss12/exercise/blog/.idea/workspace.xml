@@ -2,21 +2,150 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a34b5df-7c17-460f-8c7c-effcbd1a37d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/ContractRestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/dto/ContractDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/FuramaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/FuramaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/java/com/example/module_4_test/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/java/com/example/module_4_test/model/TestClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/java/com/example/module_4_test/repository/ITestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/java/com/example/module_4_test/service/IService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/java/com/example/module_4_test/service/impl/ServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.rtl.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-grid.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.rtl.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-reboot.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.rtl.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap-utilities.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.rtl.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.rtl.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/bootstrap.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.dark.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.dark.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.dark.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.dark.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.rtl.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/mdb.rtl.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/select2/select2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/css/select2/select2.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/img/8852-kKLDWJip.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/img/_static2_preview2_stock-photo-mint-green-suitcase-with-sun-glasses-hat-and-smartphone-on-past-4133.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/img/red_background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/img/wordpress-website-migration.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.esm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.esm.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.esm.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.esm.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/bootstrap.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/jquery-3.6.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/mdb.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/mdb.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/bn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/bs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/dsb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/en.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/hi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/hsb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/hy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/km.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ms.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/nb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ne.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/pa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ps.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/pt-BR.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sr-Cyrl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/te.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/tk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/zh-CN.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/i18n/zh-TW.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/select2.full.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/select2.full.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/select2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/static/js/select2/select2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/templates/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/templates/layout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../module_4_test/src/main/resources/templates/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/ContractController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/ContractRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/controller/ContractRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/Contract/IContractDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/Contract/IContractDetailRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/Contract/IContractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/Contract/IContractRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/customer/ICustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/customer/ICustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/facility/IFacilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/repository/facility/IFacilityRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/IContractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/IContractService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/impl/ContractDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/impl/ContractDetailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/impl/ContractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/contract/impl/ContractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/customer/ICustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/customer/ICustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/customer/impl/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/customer/impl/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/facility/IFacilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/facility/IFacilityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/facility/impl/FacilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/java/com/example/case_study_module_4/service/facility/impl/FacilityService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/contract/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/contract/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/customer/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/customer/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/facility/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study_module_4/src/main/resources/templates/facility/list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +177,7 @@
       <updated>1662783812866</updated>
       <workItem from="1662783814257" duration="19000" />
       <workItem from="1662874594181" duration="6000" />
+      <workItem from="1663268981722" duration="14000" />
     </task>
     <servers />
   </component>

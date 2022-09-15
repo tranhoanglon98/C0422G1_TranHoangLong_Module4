@@ -3,6 +3,7 @@ package com.example.case_study_module_4.controller;
 import com.example.case_study_module_4.dto.ContractDto;
 import com.example.case_study_module_4.dto.IContractDetailDto;
 import com.example.case_study_module_4.model.contract.AttachFacility;
+import com.example.case_study_module_4.model.contract.Contract;
 import com.example.case_study_module_4.model.contract.ContractDetail;
 import com.example.case_study_module_4.model.contract.NewContractInfo;
 import com.example.case_study_module_4.model.customer.Customer;
@@ -74,7 +75,7 @@ public class ContractRestController {
     }
 
     @GetMapping("/attachFacility")
-    public ResponseEntity<List<IContractDetailDto>> getAttachFacilityListToAdd(@RequestParam Integer id) {
+    public ResponseEntity<List<IContractDetailDto>> getAttachFacilityListToAddAttachFacility(Integer id) {
         List<IContractDetailDto> contractDetailDtoList = this.contractDetailService.findAllContractDetailByContractId(id);
 
         if (contractDetailDtoList.isEmpty()) {
@@ -97,5 +98,24 @@ public class ContractRestController {
         NewContractInfo newContractInfo = new NewContractInfo(facilities, customers, employees, attachFacilities);
 
         return new ResponseEntity<>(newContractInfo, HttpStatus.OK);
+    }
+
+    @GetMapping("/getCost")
+    public ResponseEntity<Double> getFacilityCost(@RequestParam Integer id){
+        Double cost = 0.0;
+        if (id != 0){
+            cost = Double.parseDouble(this.facilityService.findById(id).getCost());
+        }
+        return new ResponseEntity<>(cost,HttpStatus.OK);
+    }
+
+    @PostMapping("createContract")
+    public ResponseEntity<Void> createContract(@RequestBody Contract contract){
+        try {
+            this.contractService.save(contract);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

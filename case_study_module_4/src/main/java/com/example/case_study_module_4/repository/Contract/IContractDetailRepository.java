@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface IContractDetailRepository extends JpaRepository<ContractDetail,Integer> {
 
-
     List<ContractDetail> findByContract_Id(Integer id);
-
 
     @Query(value = "SELECT \n" +
             "    dvdk.ma_dich_vu_di_kem AS attachFacilityId,\n" +

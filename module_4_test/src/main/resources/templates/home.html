@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body style="background: linear-gradient(to right , #007991,#78ffd6)">
+<nav th:replace="~{layout::nav-bar}"></nav>
+<div class="d-flex justify-content-center ">
+    <img src="/img/CodeGym-Mon-City.jpg" width="100%"/>
+    <div style="position: absolute;top: 50%; border-radius: 10px;
+            background: grey;opacity: 80%" class="p-4">
+        <h1 class="text-light">KHỞI ĐẦU SỰ NGHIỆP LẬP TRÌNH</h1>
+    </div>
+</div>
+<div th:replace="~{layout::footer}"></div>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

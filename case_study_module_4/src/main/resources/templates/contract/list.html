@@ -42,7 +42,8 @@
                         </div>
                         <div class="col-lg-6"></div>
                         <div class="col-lg-3 pe-0">
-                            <button class="btn btn-dark shadow w-100" id="showAddContractButton">Add new Contract</button>
+                            <button class="btn btn-dark shadow w-100" id="showAddContractButton">Add new Contract
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -83,53 +84,53 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Customer</span></div>
-                            <div class="col-lg-9">
-                                <select  id="customer">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="4">3</option>
-                                </select>
-                            </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Customer</span></div>
+                        <div class="col-lg-9">
+                            <select id="customerList" class="form-select"></select>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Service</span></div>
-                            <div class="col-lg-9"><input id="service" class="form-control" type="text"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Service</span></div>
+                        <div class="col-lg-9">
+                            <select id="serviceList" class="form-select"></select>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Check-in</span></div>
-                            <div class="col-lg-9"><input id="checkIn" class="form-control" type="date"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Check-in</span></div>
+                        <div class="col-lg-9"><input id="checkIn" class="form-control" type="date"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Check-out</span></div>
+                        <div class="col-lg-9"><input id="checkOut" class="form-control" type="date"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Deposit</span></div>
+                        <div class="col-lg-9"><input id="deposit" value="0" class="form-control" type="number"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Employee</span></div>
+                        <div class="col-lg-9">
+                            <select id="employeeList" class="form-select"></select>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Check-out</span></div>
-                            <div class="col-lg-9"><input id="checkOut" class="form-control" type="date"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3"><span>Total</span></div>
+                        <div class="col-lg-9"><input readonly id="total" value="0" class="form-control" type="number">
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Deposit</span></div>
-                            <div class="col-lg-9"><input id="deposit" class="form-control" type="number"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"><span>Attach facility</span></div>
+                        <div class="col-lg-9">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addContractDetailModal">+
+                            </button>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Employee</span></div>
-                            <div class="col-lg-9">
-                                <input type="text" id="employee">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3"><span>Attach facility</span></div>
-                            <div class="col-lg-9">
-                                <button class="btn btn-primary">+</button>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-lg-3"><span>Total</span></div>
-                            <div class="col-lg-9"><input readonly id="total" class="form-control" type="number">
-                            </div>
-                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">create</button>
+                    <button type="button" onclick="createContract()" data-bs-dismiss="modal" class="btn btn-primary">create</button>
                 </div>
             </div>
         </div>
@@ -165,9 +166,7 @@
          aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addContractDetailModalLabel">Add attach facility</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" id="headerModal">
                 </div>
                 <div class="modal-body">
                     <table class="table-hover table">
@@ -186,9 +185,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" onclick="addContractDetail()" data-bs-dismiss="modal" class="btn btn-primary">ADD</button>
+                <div class="modal-footer" id="modalAddButton">
+
                 </div>
             </div>
         </div>
@@ -217,34 +215,6 @@
     let currentPage = 0;
 
     showList(currentPage)
-
-    $("#showAddContractButton").click(function (){
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            type: "GET",
-            url: "http://localhost:8080/contract/showAddNewContractModal",
-            success: function (infoForAddContractModal) {
-               let facilityList = infoForAddContractModal[0];
-               let customerList = infoForAddContractModal[1];
-               let employeeList = infoForAddContractModal[2];
-               let attachFacilityList = infoForAddContractModal[3];
-
-               let customerOption =``;
-               for (let i =0;i<customerList.length;i++){
-                   customerOption += `
-                   <option value="${customerList[i].id}">${customerList[i].name}</option>`
-               }
-
-               $("#customer").html(customerOption);
-            },
-            error: function (resultError) {
-            }
-        })
-        $("#newContract").modal('show')
-    })
 
     function showList(page) {
         currentPage = page
@@ -395,6 +365,14 @@
                     }
                 }
                 $("#modalContractDetailBody").html(modalContractDetailBody)
+                $("#modalAddButton").html(`
+                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="addContractDetail()" data-bs-dismiss="modal" class="btn btn-primary">
+                        ADD
+                    </button>`)
+                $("#headerModal").html(`
+                    <h5 class="modal-title" id="addContractDetailModalLabel">Add attach facility</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>`)
             },
             error: function (resultError) {
             }
@@ -415,7 +393,7 @@
             let contractId = test[0];
             let attachFacilityId = test[1];
             let contractDetailId = test[2];
-            let quantity = test[3]
+            let quantity = test[3];
             if (test[2] === 'null') {
                 contractDetailArr.push({
                     id: null,
@@ -427,7 +405,7 @@
                         id: attachFacilityId
                     }
                 })
-            }else {
+            } else {
                 contractDetailArr.push({
                     id: contractDetailId,
                     quantity: quantity,
@@ -459,6 +437,198 @@
             }
         })
     }
+
+    $("#showAddContractButton").click(function () {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/contract/showAddNewContractModal",
+            success: function (infoForAddContractModal) {
+                $("#total").val(0);
+                $("#checkIn").val("")
+                $("#checkOut").val("")
+                let facilityList = infoForAddContractModal.facility;
+                let customerList = infoForAddContractModal.customer;
+                let employeeList = infoForAddContractModal.employee;
+                let attachFacilityList = infoForAddContractModal.attachFacility;
+                console.log(attachFacilityList)
+                let customerOption = `<option value="0">---select customer---</option>`;
+                let facilityOption = `<option value="0">---select service---</option>`;
+                let employeeOption = `<option value="0">---select employee---</option>`;
+                let attachFacilityOption = "";
+                for (let i = 0; i < customerList.length; i++) {
+                    customerOption += `
+                   <option value="${customerList[i].id}">${customerList[i].name}</option>`
+                }
+                $("#customerList").html(customerOption);
+
+                for (let i = 0; i < facilityList.length; i++) {
+                    facilityOption += `
+                    <option value="${facilityList[i].id}">${facilityList[i].name}</option>`
+                }
+                $("#serviceList").html(facilityOption)
+
+                for (let i = 0; i < employeeList.length; i++) {
+                    employeeOption += `
+                    <option value="${employeeList[i].id}">${employeeList[i].name}</option>`
+                }
+                $("#employeeList").html(employeeOption)
+
+                for (let i = 0; i < attachFacilityList.length; i++) {
+                    attachFacilityOption += `<tr>
+                            <td>
+                                <input value="${attachFacilityList[i].id}" type="checkbox">
+                                <input type="hidden" value="${attachFacilityList[i].id}"  class="${attachFacilityList[i].id}">
+                            </td>
+                            <td>${attachFacilityList[i].name}</td>
+                            <td>${attachFacilityList[i].cost}</td>
+                            <input type="hidden" class="${attachFacilityList[i].id}" value="${attachFacilityList[i].cost}">
+                            <td>${attachFacilityList[i].unit}</td>
+                            <td>${attachFacilityList[i].status}</td>
+                            <td><input type="number" class="form-control ${attachFacilityList[i].id}"></td></tr>`
+                }
+                $("#modalContractDetailBody").html(attachFacilityOption)
+                $("#modalAddButton").html(`
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                    href="#newContract" role="button">Close</a>
+                                    <a data-bs-toggle="modal"
+                                    href="#newContract" role="button">
+                                    <button class="btn btn-primary" onclick="getTotal()">Add</button></a>`)
+                $("#headerModal").html(`
+                                    <h5 class="modal-title" id="addContractDetailModalLabel">Add attach facility</h5>
+                                    <a data-bs-toggle="modal"
+                                    href="#newContract" role="button">
+                                    <button type="button" class="btn-close " data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                    </a>`)
+            },
+            error: function (resultError) {
+            }
+        })
+        $("#newContract").modal('show')
+    })
+
+    $("#serviceList").change(function () {
+        getTotal()
+    })
+
+    function getTotal() {
+        let facilityId = $("#serviceList").val();
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/contract/getCost?id=" + facilityId,
+            success: function (cost) {
+                let total = cost;
+                let checkBoxList = [];
+                $("#modalContractDetailBody input:checked").each(function () {
+                    checkBoxList.push(this.value)
+                })
+                for (let i = 0; i < checkBoxList.length; i++) {
+                    let test = $('.' + checkBoxList[i]).map(function () {
+                        return this.value
+                    }).get()
+                    console.log(test)
+                    total += parseFloat(test[1]) * parseInt(test[2]);
+                }
+
+                $("#total").val(total);
+            },
+            error: function (resultError) {
+            }
+        })
+    }
+
+    function createContract() {
+        let statDay = $("#checkIn").val();
+        let endDay = $("#checkOut").val();
+        let deposit = $("#deposit").val();
+        let employee = $("#employeeList").val();
+        let customer = $("#customerList").val();
+        let facility = $("#serviceList").val();
+
+        let newContract = {
+            id: null,
+            startDay: statDay,
+            endDay: endDay,
+            deposit: deposit,
+            employee: {
+                id: employee
+            },
+            customer: {
+                id: customer
+            },
+            facility: {
+                id: facility
+            }
+        }
+        console.log(newContract)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/contract/createContract" ,
+            data: JSON.stringify(newContract),
+            success: function (success) {
+               addContractDetailToNewContract()
+            },
+            error: function (resultError) {
+                alert("add contract fail")
+            }
+        })
+    }
+
+    function addContractDetailToNewContract() {
+        let checkBoxList = [];
+        let attachList = [];
+        $("#modalContractDetailBody input:checked").each(function () {
+            checkBoxList.push(this.value)
+        })
+        for (let i = 0; i < checkBoxList.length; i++) {
+            let test = $('.' + checkBoxList[i]).map(function () {
+                return this.value
+            }).get()
+
+            let quantity = test[2];
+            let attachFacility = test[0]
+
+            attachList.push({
+                    id: null,
+                    quantity: quantity,
+                    contract: {
+                        id: null
+                    },
+                    attachFacility: {
+                        id: attachFacility
+                    }
+                })
+        }
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/contract/addContractDetail",
+            data: JSON.stringify(attachList),
+            success: function (success) {
+                alert("add success")
+            },
+            error: function (resultError) {
+            }
+        })
+    }
+
+
 </script>
 
 </body>

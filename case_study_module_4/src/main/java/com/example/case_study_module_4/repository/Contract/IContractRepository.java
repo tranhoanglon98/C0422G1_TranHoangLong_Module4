@@ -53,4 +53,7 @@ public interface IContractRepository extends JpaRepository<Contract, Integer> {
             "GROUP BY hd.ma_hop_dong",nativeQuery = true,countQuery = "select count(*) from hop_dong where hop_dong.ngay_ket_thuc > :now")
     Page<ContractDto> findInvalidContract(@Param("now") String now, Pageable pageable);
 
+    @Query(value = "select * from hop_dong order by ma_hop_dong DESC limit 1;",nativeQuery = true)
+    Contract findLastContract();
+
 }

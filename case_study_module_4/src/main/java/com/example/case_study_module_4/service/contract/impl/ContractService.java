@@ -1,6 +1,7 @@
 package com.example.case_study_module_4.service.contract.impl;
 
 import com.example.case_study_module_4.dto.ContractDto;
+import com.example.case_study_module_4.model.contract.Contract;
 import com.example.case_study_module_4.repository.Contract.IContractRepository;
 import com.example.case_study_module_4.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,15 @@ public class ContractService implements IContractService {
     @Override
     public Page<ContractDto> findInvalidContract(String now, Pageable pageable) {
         return this.contractRepository.findInvalidContract(now,pageable);
+    }
+
+    @Override
+    public void save(Contract contract) {
+         this.contractRepository.save(contract);
+    }
+
+    @Override
+    public Contract findLastContract() {
+        return this.contractRepository.findLastContract();
     }
 }
